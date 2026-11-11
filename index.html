@@ -124,6 +124,12 @@ a{color:var(--accent)}
 .ms-opt .ms-t{flex:1}
 .ms-opt .ms-c{color:var(--muted);font-size:.82rem}
 .ms-ghead{font-size:.74rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:.55rem .45rem .2rem}
+#ms-location .ms-panel{min-width:min(350px,calc(100vw - 2.5rem))}
+.ms-opt.lvl0{font-weight:700;background:var(--surface2);margin-top:.3rem}
+.ms-opt.lvl0:first-child{margin-top:0}
+.ms-opt.lvl1{padding-left:1.65rem;font-size:.92rem}
+.ms-opt.lvl1 .ms-t{overflow-wrap:anywhere}
+.ms-opt input:indeterminate{accent-color:var(--accent)}
 .ms-clear{border:0;background:none;color:var(--accent);font-weight:700;font-size:.86rem;text-align:left;padding:.4rem .45rem;text-decoration:underline;text-underline-offset:3px}
 .ms-btn .ms-pending{background:#b98a2f;color:#fff;border-radius:999px;font-size:.75rem;font-weight:700;padding:.08rem .5rem;flex:none;min-width:1.35rem;text-align:center}
 .ms-btn.has-pending{border-color:#b98a2f;box-shadow:inset 0 0 0 1px #b98a2f}
@@ -430,6 +436,37 @@ footer{border-top:1px solid var(--line-strong);background:var(--surface)}
 button,.apply-btn,.cta-primary,.cta-secondary,.comp-view,.saved-btn,.qchip,.tchip,.home-tile,.nav-item,.byline .links a,.contact-btn,.creator .li-btn,.loadmore button,.filter-toggle{font-family:"Poppins","Source Serif 4",Georgia,sans-serif}
 .home-tile-title,.view-head h2,.guide-opening h2,.guide-sec>h3,.portfolio-hero h2,.port-sec>h3,.results-meta h2,.filter-head h2{font-family:"Poppins","Source Serif 4",Georgia,serif;font-weight:800}
 .card h3,.comp-card h3,.about-card h3,.creator h3,.step h4,.why h4,.gtk h4,.tl-head h4,.proj-card h4,.cred-card h4,.edu-card h4,.guide-close h3,.why-board h3,.port-close h3,.resume-block h3,.maker-note h3,.home-section-head h2,.home-quick h2{font-family:"Poppins","Source Serif 4",Georgia,serif;font-weight:700}
+
+/* ---------- Smooth transitions (slow, gentle ease on every interaction) ---------- */
+:root{--ease-out:cubic-bezier(.22,1,.36,1);--ease-smooth:cubic-bezier(.25,.8,.3,1);--dur-view:420ms;--dur-panel:360ms;--dur-close:280ms;--dur-ui:300ms;--dur-press:180ms;--dur-card:340ms}
+@keyframes viewIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes panelIn{from{opacity:0;max-height:0;transform:translateY(-6px)}to{opacity:1;max-height:var(--panel-max,380px);transform:translateY(0)}}
+@keyframes panelOut{from{opacity:1;max-height:var(--panel-max,380px);transform:translateY(0)}to{opacity:0;max-height:0;transform:translateY(-6px)}}
+@keyframes dropIn{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes dropOut{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-5px) scale(.98)}}
+.ms-panel{--panel-max:380px}
+@media (max-width:520px){.ms-panel{--panel-max:min(320px,58vh)}}
+.view.is-entering{animation:viewIn var(--dur-view) var(--ease-out) both;will-change:opacity,transform}
+.ms-panel.is-opening{animation:panelIn var(--dur-panel) var(--ease-out) both;overflow:hidden}
+.ms-panel.is-closing{animation:panelOut var(--dur-close) var(--ease-smooth) both;pointer-events:none;overflow:hidden}
+.nav-menu.is-opening{animation:dropIn var(--dur-panel) var(--ease-out) both;transform-origin:top right}
+.nav-menu.is-closing{animation:dropOut var(--dur-close) var(--ease-smooth) both;pointer-events:none}
+/* Every clickable or typeable control eases its hover, focus and selected
+   states at the same gentle pace, so no click anywhere snaps instantly.
+   This covers every button, link-button, chip, tab, select, search field,
+   filter row and pill on the page, including ones rendered later by script. */
+button,a,select,summary,input,textarea,[role="button"],[role="tab"],.ms-opt{transition:background-color var(--dur-ui) var(--ease-smooth),border-color var(--dur-ui) var(--ease-smooth),color var(--dur-ui) var(--ease-smooth),box-shadow var(--dur-ui) var(--ease-smooth),opacity var(--dur-ui) var(--ease-smooth)}
+button,.apply-btn,.cta-primary,.cta-secondary,.comp-view,.qchip,.tchip,.home-tile,.nav-item,.bookmark,.back-btn,.jump-pill button,.af-chip button{transition-property:background-color,border-color,color,box-shadow,opacity,transform;transition-duration:var(--dur-ui),var(--dur-ui),var(--dur-ui),var(--dur-ui),var(--dur-ui),var(--dur-press);transition-timing-function:var(--ease-smooth)}
+button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-view:active,.qchip:active,.tchip:active,.nav-item:active,.bookmark:active,.back-btn:active,.jump-pill button:active{transform:translateY(1px)}
+.home-tile:active{transform:scale(.99)}
+.card,.comp-card,.home-tile,.filtercard,.saved-header{transition:background-color var(--dur-card) var(--ease-smooth),border-color var(--dur-card) var(--ease-smooth),box-shadow var(--dur-card) var(--ease-smooth),transform var(--dur-press) var(--ease-smooth)}
+.searchbar{transition:border-color var(--dur-ui) var(--ease-smooth),box-shadow var(--dur-ui) var(--ease-smooth)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .view.is-entering,.ms-panel.is-opening,.ms-panel.is-closing,.nav-menu.is-opening,.nav-menu.is-closing{animation:none!important}
+  button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-view:active,.qchip:active,.tchip:active,.nav-item:active,.bookmark:active,.back-btn:active,.jump-pill button:active,.home-tile:active{transform:none!important}
+}
 </style>
 </head>
 <body>
@@ -503,7 +540,7 @@ button,.apply-btn,.cta-primary,.cta-secondary,.comp-view,.saved-btn,.qchip,.tchi
         <button type="button" class="home-tile" data-goto="jobs">
           <span class="home-tile-eyebrow"><b id="homeTileJobs">–</b> open roles</span>
           <span class="home-tile-title">Jobs</span>
-          <span class="home-tile-desc">Search and filter every open role by city, firm, field, pay, license, and company size.</span>
+          <span class="home-tile-desc">Search and filter every open role by location, discipline, experience, pay, license, and company size.</span>
           <span class="home-tile-go">Browse jobs &rarr;</span>
         </button>
         <button type="button" class="home-tile" data-goto="companies">
@@ -595,18 +632,14 @@ button,.apply-btn,.cta-primary,.cta-secondary,.comp-view,.saved-btn,.qchip,.tchi
         <button class="filter-toggle" id="filterToggle" aria-expanded="false">Show filters</button>
       </div>
       <div class="filter-body">
-        <p style="margin:.7rem 0 0;color:var(--muted);font-size:.88rem">Every filter accepts multiple picks. A job matches when it fits <b>any</b> pick inside one filter and <b>every</b> filter you have used.</p>
+        <p style="margin:.7rem 0 0;color:var(--muted);font-size:.88rem">Every filter accepts multiple picks. A job matches when it fits <b>any</b> pick inside one filter and <b>every</b> filter you have used. Location is one filter, organised as a tree: the IDOT districts in number order, with each district's cities indented underneath. Tick a district to take everything in it, or tick just the cities you want; a job listed for more than one city appears under each of those cities, so ticking Peoria brings up every job that mentions Peoria, even when the listing names other cities too. Every Illinois city sits under the one district it belongs to, even when a job carries no district of its own. Region phrases that belong to one district sit under that district too: Chicagoland, Greater Chicagoland, and Chicagoland and surrounding regions are all District 1. <b>No district listed</b> at the end holds only the places no Illinois district can claim, like Boston, MA, or a phrase that spans several districts, each one on its own line so you can see exactly what it says. Tick your places, then press <b>Apply filters</b> and the panel closes and takes you straight to the matching jobs.</p>
         <div class="filter-grid">
-          <div class="fgroup"><span class="lbl" id="lbl-area">Area</span><div id="ms-area"></div></div>
-          <div class="fgroup"><span class="lbl" id="lbl-district">District</span><div id="ms-district"></div></div>
-          <div class="fgroup"><span class="lbl" id="lbl-city">City</span><div id="ms-city"></div></div>
-          <div class="fgroup"><span class="lbl" id="lbl-firm">Firm</span><div id="ms-firm"></div></div>
-          <div class="fgroup"><span class="lbl" id="lbl-field">Field / Discipline</span><div id="ms-field"></div></div>
-          <div class="fgroup"><span class="lbl" id="lbl-level">Experience level</span><div id="ms-level"></div></div>
-          <div class="fgroup"><span class="lbl" id="lbl-setting">Work setting</span><div id="ms-setting"></div></div>
+          <div class="fgroup"><span class="lbl" id="lbl-location">Location</span><div id="ms-location"></div></div>
+          <div class="fgroup"><span class="lbl" id="lbl-field">Discipline</span><div id="ms-field"></div></div>
+          <div class="fgroup"><span class="lbl" id="lbl-exp">Experience</span><div id="ms-exp"></div></div>
+          <div class="fgroup"><span class="lbl" id="lbl-setting">Setting</span><div id="ms-setting"></div></div>
           <div class="fgroup"><span class="lbl" id="lbl-license">License</span><div id="ms-license"></div></div>
-          <div class="fgroup"><span class="lbl" id="lbl-maxexp">Maximum experience required</span><div id="ms-maxexp"></div></div>
-          <div class="fgroup"><span class="lbl" id="lbl-pay">Pay (annual)</span><div id="ms-pay"></div></div>
+          <div class="fgroup"><span class="lbl" id="lbl-pay">Pay</span><div id="ms-pay"></div></div>
           <div class="fgroup"><span class="lbl" id="lbl-size">Company size</span><div id="ms-size"></div></div>
           <div class="fgroup"><span class="lbl" id="lbl-sort">Sort by</span>
             <select id="fSort" aria-labelledby="lbl-sort">
@@ -708,7 +741,7 @@ button,.apply-btn,.cta-primary,.cta-secondary,.comp-view,.saved-btn,.qchip,.tchi
       <h3>How to use this board</h3>
       <p class="sec-lede">Four steps take you from landing here to an application on a firm's own site.</p>
       <div class="steps">
-        <div class="step"><span class="num">1</span><div><h4>Search or filter</h4><p>Use the search box at the top for a title, firm, city, or keyword, or open the Jobs tab and filter. Every filter accepts several picks at once, so you can choose a few cities, firms, fields, pay bands, or company sizes together. Pick <b>Chicagoland</b> under Area to cover Chicago and its suburbs in one tap. A job shows when it matches any pick inside one filter and every filter you have used.</p></div></div>
+        <div class="step"><span class="num">1</span><div><h4>Search or filter</h4><p>Use the search box at the top for a title, firm, city, or keyword, or open the Jobs tab and filter. Every filter accepts several picks at once, so you can choose a few places, disciplines, pay bands, or company sizes together. Location is a single filter organised as a tree: the IDOT districts in number order, with each district's cities indented underneath, so tick District 1 to take the whole district, or open it up and pick just Chicago, just Naperville, or whichever places suit you, and a job listed for several cities shows under each one, so picking Peoria alone brings up every job that mentions Peoria, however many other cities the listing names. Every Illinois city sits under the one district it belongs to, even when a job carries no district of its own, region phrases that belong to one district sit under that district too (Chicagoland, Greater Chicagoland, and Chicagoland and surrounding regions are all District 1), and No district listed at the end holds only the places no Illinois district can claim, like Boston, MA, or a phrase that spans several districts, each one on its own line. A job shows when it matches any pick inside one filter and every filter you have used.</p></div></div>
         <div class="step"><span class="num">2</span><div><h4>Read the labels</h4><p>Each card carries plain labels for experience level, license, pay, and link status. The glossary right below shows each label exactly as it appears on a card, so there are no surprises when you start browsing.</p></div></div>
         <div class="step"><span class="num">3</span><div><h4>Apply on the firm's own site</h4><p>Tap <b>Apply</b> and you go straight to that job's exact posting on the firm's own site. That is where you apply. Nothing is applied for, uploaded, or collected on this page.</p></div></div>
         <div class="step"><span class="num">4</span><div><h4>Save jobs for later</h4><p>Tap the bookmark on any card to add it to your Saved list, then tap <b>Saved</b> at the top to see only those roles. Your list stays on your own device, no account is needed, and clearing your browser data clears it.</p></div></div>
@@ -1015,7 +1048,7 @@ var DATA = {jobs:[], companies:[], updated:"Nov 11, 2026"};
 var state = {
   q:"", sort:"fresh",
   direct:false, pay:false, nope:false, savedOnly:false, shown:PAGE, quick:"",
-  sel: { area:new Set(), district:new Set(), city:new Set(), firm:new Set(), field:new Set(), level:new Set(), setting:new Set(), license:new Set(), maxexp:new Set(), pay:new Set(), size:new Set() }
+  sel: { location:new Set(), firm:new Set(), field:new Set(), exp:new Set(), setting:new Set(), license:new Set(), pay:new Set(), size:new Set() }
 };
 var saved = new Set();
 try{ var raw = localStorage.getItem("il-transport-jobs-saved-v1"); if(raw){ JSON.parse(raw).forEach(function(id){ saved.add(id); }); } }catch(e){}
@@ -1026,12 +1059,8 @@ function fmtDate(iso){ if(!iso) return ""; var p = iso.split("-"); if(p.length!=
 function fmtMoney(n){ return "$" + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 function distLabel(j){ return j.district ? ("District " + j.district + " · " + DIST_NAMES[j.district]) : "District not listed"; }
 function jobVal(j, key){
-  if(key==="area") return j.areaGroup;
-  if(key==="district") return j.district ? String(j.district) : "none";
-  if(key==="city") return j.city;
   if(key==="firm") return j.firm;
   if(key==="field") return j.field;
-  if(key==="level") return j.level;
   if(key==="setting") return j.setting;
   if(key==="license") return j.licenseGroup;
   if(key==="size") return j.sizeBand || "Unknown";
@@ -1042,6 +1071,204 @@ function qualifiesMaxExp(j, cap){
   return (j.minYears!=null && j.minYears<=cap) || (cap===0 && j.level==="Intern / Graduate");
 }
 
+/* ---------- location: a district tree ----------
+   The Location filter is one panel organised as a tree. The top level
+   is the IDOT districts in number order, and indented under each
+   district are that district's Illinois cities, one city per leaf.
+   Every listing's location text is split into the individual places
+   it names: "Chicago or Bolingbrook or Peoria", comma lists, slash
+   lists, and "(also ...)" lists are all broken apart, and the job is
+   indexed under EACH place it mentions, so ticking Peoria returns
+   every job that mentions Peoria even when the same listing also
+   names Chicago and Bolingbrook. No leaf ever joins two places.
+   Each Illinois city belongs to exactly one district. The assignment
+   is built from the cities on jobs that carry a district (majority
+   wins), with IDOT district geography filled in for cities that only
+   appear on jobs whose district field is blank (Aurora, Naperville,
+   Bolingbrook, Mokena, Bannockburn and the rest), so an Illinois city
+   appears ONLY under its own district, never under No district
+   listed, even when the job itself carries no district.
+   A region phrase that clearly belongs to one district is a leaf
+   under THAT district, in its exact wording, never under No district
+   listed: every Chicagoland variant (Chicagoland, Greater
+   Chicagoland, Chicagoland and surrounding regions, and any other
+   wording containing "Chicagoland") is District 1, so ticking
+   District 1 includes those jobs and ticking the region leaf returns
+   exactly its jobs. Region phrases that span several districts
+   (Northern Illinois, Southern IL) or the whole state (Illinois,
+   IDOT Service Areas throughout Illinois) do NOT clearly belong to
+   one district and stay under No district listed.
+   The final branch, "No district listed", holds ONLY the places no
+   Illinois district can claim, each as its own separate leaf:
+   out-of-state places (Boston, MA, St. Louis, MO, Milwaukee, WI and
+   the like) and non-city descriptors that appear as locations
+   (Northern Illinois - IDOT client site, US Remote, Not stated, and
+   similar), each shown individually so the reader can see exactly
+   what it says. Because a job can mention places in more than one
+   branch, district and branch counts overlap and are not expected
+   to add up to the total number of jobs.
+   Selection values are encoded by node: "district:1" /
+   "district:none" for a whole branch, "city:1:Chicago" for one city
+   under its district, "region:1:Chicagoland" for one region leaf
+   under its district, and "other:<label>" for one leaf under No
+   district listed. The set only ever holds topmost selected nodes:
+   a district pick subsumes its leaves (see treeToggle). */
+var NON_IL_CITIES = { "St. Louis":"St. Louis, MO", "Waterford":"Waterford, WI", "Milwaukee":"Milwaukee, WI", "Boston":"Boston, MA", "Atlanta":"Atlanta, GA", "Omaha":"Omaha, NE", "Charlotte":"Charlotte, NC", "Raleigh":"Raleigh, NC", "St. Paul":"St. Paul, MN", "Denver":"Denver, CO", "Minneapolis":"Minneapolis, MN", "Indianapolis":"Indianapolis, IN", "Salt Lake City":"Salt Lake City, UT" };
+var REGION_CITIES = { "Not stated":1, "Illinois":1, "Chicagoland":1, "Greater Chicagoland":1, "Chicagoland and surrounding regions":1, "Northern Illinois - IDOT client site":1, "Northern Illinois":1, "Southern IL":1, "Southern Illinois":1 };
+/* Non-city descriptors that appear as locations: each becomes its own
+   single leaf, labelled exactly as mapped. A descriptor that names a
+   region belonging to one district (see REGION_DISTRICT) becomes a
+   region leaf under that district; the rest become leaves under No
+   district listed. */
+var DESCRIPTOR_LABELS = { "Not stated":"Not stated", "Illinois":"Illinois", "Missouri":"Missouri", "Chicagoland":"Chicagoland", "Greater Chicagoland":"Greater Chicagoland", "Chicagoland and surrounding regions":"Chicagoland and surrounding regions", "Northern Illinois":"Northern Illinois", "Northern Illinois - IDOT client site":"Northern Illinois - IDOT client site", "Southern IL":"Southern IL", "Southern Illinois":"Southern Illinois", "IDOT Service Areas throughout Illinois":"IDOT Service Areas throughout Illinois", "US Remote":"US Remote" };
+/* Region phrases that clearly belong to exactly one IDOT district.
+   Every Chicagoland wording is District 1 (the Chicago district);
+   regionDistrictFor also catches any future Chicagoland variant by
+   name, so a refresh can never file one under No district listed.
+   Audited against the data: the only other region phrases present
+   are Northern Illinois and Northern Illinois - IDOT client site
+   (Districts 1 to 3), Southern IL and Southern Illinois (Districts
+   8 and 9), and the statewide Illinois and IDOT Service Areas
+   throughout Illinois, none of which belongs to a single district,
+   so they stay under No district listed. */
+var REGION_DISTRICT = { "Chicagoland":1, "Greater Chicagoland":1, "Chicagoland and surrounding regions":1 };
+function regionDistrictFor(label){
+  if(REGION_DISTRICT[label]!=null) return REGION_DISTRICT[label];
+  if(/chicagoland/i.test(label)) return 1;
+  return null;
+}
+var LOC_DROP = { "any location":1, "other Midwest cities":1, "other IL":1, "MO locations":1, "multi-state regional locations":1, "other locations":1, "choose location":1 };
+var OUT_STATE_CODES = "WI|MO|MA|GA|NE|NC|MN|TX|PA|OH|CO|UT|IN|MI|CA|TN|KS";
+/* IDOT district geography for cities the district-carrying jobs do
+   not settle on their own: Effingham heads District 7, Pontiac sits
+   in District 3, Normal pairs with Bloomington in District 5,
+   New Lenox is Will County in District 1, Macomb is District 4, and
+   East St. Louis is Metro East in District 8. */
+var CITY_DISTRICT_OVERRIDE = { "Effingham":7, "Pontiac":3, "Normal":5, "New Lenox":1, "Macomb":4, "East St. Louis":8 };
+var EXTRA_IL_CITIES = ["Columbia","Effingham","Freeburg","Glen Carbon","Maryville","Mt. Vernon","New Lenox","Pontiac","Taylorville","Volo"];
+var CITY_VOCAB = null, CITY_VOCAB_BY_LEN = [];
+var CITY_DISTRICT = {};
+function normCityName(t){
+  if(t==="Chicago O'Hare" || t==="Chicago area" || t==="Chicago metropolitan area") return "Chicago";
+  return t;
+}
+function buildCityVocab(jobs){
+  var vocab = {};
+  jobs.forEach(function(j){
+    String(j.city || "").split(/\s+or\s+|\//).forEach(function(p){
+      var t = normCityName(p.trim());
+      if(t && !NON_IL_CITIES[t] && !REGION_CITIES[t]) vocab[t] = 1;
+    });
+  });
+  EXTRA_IL_CITIES.forEach(function(c){ vocab[c] = 1; });
+  CITY_VOCAB = vocab;
+  CITY_VOCAB_BY_LEN = Object.keys(vocab).sort(function(a, b){ return b.length - a.length; });
+}
+/* Split one listing's location text into the individual places it
+   names: {cities:[Illinois city names], regions:[{label, district}
+   for a region phrase that belongs to one district], others:
+   [out-of-state or non-city labels]}. A combined string is never
+   kept whole. */
+function parseJobPlaces(j){
+  if(!CITY_VOCAB) buildCityVocab(DATA.jobs);
+  var s = String(j.location || "");
+  var extras = [];
+  s = s.replace(/\(([^)]*)\)/g, function(m, inner){
+    var mm = inner.match(/\balso\b/i);
+    if(mm) extras.push(inner.slice(mm.index));
+    else if(/^\s*or\s/i.test(inner)) extras.push(inner);
+    return " ";
+  });
+  if(extras.length) s = s + " / " + extras.join(" / ");
+  /* Protect "City, ST" for out-of-state codes before commas split the
+     string, so Boston, MA stays one place; ", IL" simply comes off. */
+  s = s.replace(new RegExp(",\\s*(" + OUT_STATE_CODES + ")\\b", "g"), "~~$1");
+  s = s.replace(/,\s*(IL|Illinois)\b/g, "");
+  var cities = [], regions = [], others = [];
+  function pushC(c){ if(cities.indexOf(c)===-1) cities.push(c); }
+  function pushO(o){ if(others.indexOf(o)===-1) others.push(o); }
+  function pushR(label){
+    var d = regionDistrictFor(label);
+    if(d==null){ pushO(label); return; }
+    for(var i=0;i<regions.length;i++){ if(regions[i].label===label) return; }
+    regions.push({label:label, district:d});
+  }
+  function pushDescriptor(label){ pushR(label); }
+  function cleanT(t){
+    t = t.replace(/^(also listed|also workable from|also|listed|or)\s+/i, "");
+    t = t.replace(/\s+\d{5}(-\d{4})?\s*$/, "");
+    t = t.replace(/\s+possible$/i, "");
+    return t.trim();
+  }
+  function classify(t){
+    if(!t) return;
+    if(/^[A-Z]{2}$/.test(t)) return;
+    var mi = t.indexOf("~~");
+    if(mi>-1){ pushO(t.slice(0, mi).trim() + ", " + t.slice(mi+2)); return; }
+    var ms = t.match(new RegExp("\\s(" + OUT_STATE_CODES + ")$"));
+    if(ms && !CITY_VOCAB[t.slice(0, ms.index)]){ pushO(t.slice(0, ms.index).trim() + ", " + ms[1]); return; }
+    if(LOC_DROP[t] || /^[A-Z]{2}\s+locations$/.test(t)) return;
+    if(/casual|as-needed|full time|remote considered/i.test(t)) return;
+    if(DESCRIPTOR_LABELS[t]){ pushDescriptor(DESCRIPTOR_LABELS[t]); return; }
+    if(t.indexOf("Not stated")===0){ pushO("Not stated"); return; }
+    if(NON_IL_CITIES[t]){ pushO(NON_IL_CITIES[t]); return; }
+    if(t==="Bloomington-Normal"){ pushC("Bloomington"); pushC("Normal"); return; }
+    var n = normCityName(t);
+    if(CITY_VOCAB[n]){ pushC(n); return; }
+    for(var i=0;i<CITY_VOCAB_BY_LEN.length;i++){
+      var c = CITY_VOCAB_BY_LEN[i];
+      if(t.indexOf(c + " ")===0 || t.indexOf(c + ".")===0){ pushC(c); return; }
+    }
+  }
+  s.split(/[/;,]|\s+or\s+/i).forEach(function(seg){
+    var sg = cleanT(seg.trim());
+    if(!sg) return;
+    if(DESCRIPTOR_LABELS[sg]){ pushDescriptor(DESCRIPTOR_LABELS[sg]); return; }
+    sg.split(/\s+and\s+/i).forEach(function(part){ classify(cleanT(part.trim())); });
+  });
+  if(!cities.length && !regions.length && !others.length){
+    var fb = normCityName(String(j.city || "").trim());
+    if(fb && CITY_VOCAB[fb] && !NON_IL_CITIES[fb] && !REGION_CITIES[fb]) pushC(fb);
+    else if(DESCRIPTOR_LABELS[fb]) pushDescriptor(DESCRIPTOR_LABELS[fb]);
+    else if(NON_IL_CITIES[fb]) pushO(NON_IL_CITIES[fb]);
+  }
+  return {cities:cities, regions:regions, others:others};
+}
+/* Assign every Illinois city to the one district it belongs to:
+   the majority district among jobs carrying that city, with the
+   geography overrides above applied last. */
+function buildCityDistrict(jobs){
+  var counts = {}, all = {};
+  jobs.forEach(function(j){
+    (j.cityNames || []).forEach(function(c){
+      all[c] = 1;
+      if(j.district){
+        var m = counts[c] || (counts[c] = {});
+        var d = Number(j.district);
+        m[d] = (m[d] || 0) + 1;
+      }
+    });
+  });
+  CITY_DISTRICT = {};
+  Object.keys(all).forEach(function(c){
+    if(CITY_DISTRICT_OVERRIDE[c]){ CITY_DISTRICT[c] = CITY_DISTRICT_OVERRIDE[c]; return; }
+    var m = counts[c], best = null, bestN = -1;
+    if(m) Object.keys(m).forEach(function(d){
+      var dn = Number(d);
+      if(m[d] > bestN || (m[d]===bestN && (best===null || dn < best))){ best = dn; bestN = m[d]; }
+    });
+    if(best!==null) CITY_DISTRICT[c] = best;
+  });
+}
+function jobMatchesLocation(j, set){
+  if(set.has("district:none") && j.otherKeys && j.otherKeys.length) return true;
+  var ds = j.districtsCovered || [];
+  for(var k=0;k<ds.length;k++){ if(set.has("district:" + ds[k])) return true; }
+  var keys = j.placeKeys || [];
+  for(var i=0;i<keys.length;i++){ if(set.has(keys[i])) return true; }
+  return false;
+}
+
 var ICON_PIN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>';
 var ICON_BLDG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 21V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v16M14 9h5a1 1 0 0 1 1 1v11M2 21h20M8 8h2m-2 4h2m-2 4h2"/></svg>';
 var ICON_FIELD = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v18M5 8l7-5 7 5M7 21h10"/></svg>';
@@ -1050,7 +1277,7 @@ var ICON_BM = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><
 
 /* ---------- multi-select widget ---------- */
 var MS = {}; /* key -> {options, container, btn, panel, list, search} */
-function buildMS(key, containerId, labelId, allLabel, options, searchable){
+function buildMS(key, containerId, labelId, allLabel, options, searchable, tree){
   var wrap = $(containerId);
   var h = '<div class="ms">'
     + '<button type="button" class="ms-btn" aria-haspopup="true" aria-expanded="false" aria-labelledby="'+labelId+'"><span class="ms-txt">'+esc(allLabel)+'</span><span class="ms-n" hidden></span><span class="ms-pending" hidden title="Selections waiting to be applied"></span><span class="ms-caret" aria-hidden="true">▾</span></button>'
@@ -1064,7 +1291,7 @@ function buildMS(key, containerId, labelId, allLabel, options, searchable){
     + '</div></div>'
     + '</div></div>';
   wrap.innerHTML = h;
-  var ms = { key:key, allLabel:allLabel, options:options, draft:null, btn:wrap.querySelector(".ms-btn"), panel:wrap.querySelector(".ms-panel"), list:wrap.querySelector(".ms-list"), search:wrap.querySelector(".ms-search"), txt:wrap.querySelector(".ms-txt"), n:wrap.querySelector(".ms-n"), pending:wrap.querySelector(".ms-pending"), draftCount:wrap.querySelector(".ms-draft-count") };
+  var ms = { key:key, allLabel:allLabel, options:options, tree:!!tree, draft:null, btn:wrap.querySelector(".ms-btn"), panel:wrap.querySelector(".ms-panel"), list:wrap.querySelector(".ms-list"), search:wrap.querySelector(".ms-search"), txt:wrap.querySelector(".ms-txt"), n:wrap.querySelector(".ms-n"), pending:wrap.querySelector(".ms-pending"), draftCount:wrap.querySelector(".ms-draft-count") };
   MS[key] = ms;
   renderMSList(ms, "");
   updateDraftUI(ms);
@@ -1088,7 +1315,10 @@ function buildMS(key, containerId, labelId, allLabel, options, searchable){
     var cb = e.target.closest("input[type=checkbox]"); if(!cb) return;
     if(!ms.draft) ms.draft = new Set(state.sel[key]);
     var v = cb.getAttribute("data-v");
-    if(cb.checked) ms.draft.add(v); else ms.draft.delete(v);
+    /* Ticking a box only updates the draft: the list is NOT rebuilt and
+       nothing scrolls, so the panel stays exactly where the user is. */
+    if(ms.tree){ treeToggle(ms, v, cb.checked); syncTreeChecks(ms); }
+    else if(cb.checked) ms.draft.add(v); else ms.draft.delete(v);
     updateDraftUI(ms);
   });
 }
@@ -1103,7 +1333,7 @@ function updatePending(ms){
   if(!ms || !ms.pending) return;
   var has = !!(ms.draft && setsDiffer(ms.draft, state.sel[ms.key]));
   ms.pending.hidden = !has;
-  if(has) ms.pending.textContent = ms.draft.size ? String(ms.draft.size) : "•";
+  if(has){ ms.pending.textContent = ms.draft.size ? String(ms.draft.size) : "•"; }
   ms.btn.classList.toggle("has-pending", has);
 }
 function updateDraftUI(ms){
@@ -1114,34 +1344,135 @@ function updateDraftUI(ms){
   updatePending(ms);
 }
 function applyMS(ms){
-  if(ms.draft && setsDiffer(ms.draft, state.sel[ms.key])){
+  var changed = !!(ms.draft && setsDiffer(ms.draft, state.sel[ms.key]));
+  if(changed){
     updateCurrentHistScroll();
     state.sel[ms.key] = new Set(ms.draft);
-    state.quick = "";
-    ms.draft = null;
-    closeMS(ms);
-    syncMS(ms);
-    renderJobs(true);
-    recordHistory();
-  } else {
-    ms.draft = null;
-    closeMS(ms);
-    syncMS(ms);
+    /* The Chicagoland quick pick is an area flag of its own now, not a
+       pile of city ticks, so applying a panel must not silently drop it;
+       every other quick pick is already materialised in the selections. */
+    if(state.quick!=="chicagoland") state.quick = "";
   }
+  ms.draft = null;
+  closeMS(ms);
+  syncMS(ms);
   updatePending(ms);
+  if(changed) renderJobs(true);
+  /* Apply means "show me those jobs": minimise the whole filter area
+     (on phones the filter card collapses back to its Show filters
+     button) and land at the top of the filtered results. This runs
+     after renderJobs, whose scroll preservation is for in-place
+     controls and must not win here. */
+  var card = $("filterCard");
+  var dropH = 0;
+  if(card && window.innerWidth<=860 && card.classList.contains("open")){
+    var fb = card.querySelector(".filter-body");
+    if(fb) dropH = fb.offsetHeight;
+    animateFilterBody(false);
+  }
+  var rm = $("resultsMeta");
+  if(rm) smoothScrollToEl(rm, dropH);
+  if(changed) recordHistory();
+}
+/* ---------- tree helpers (Location) ----------
+   LOC_CHILDREN maps a district node's value to its leaf values, and
+   LOC_PARENT maps each leaf value back to its district node. The
+   selection set only holds topmost nodes: ticking a district stores
+   the district value alone, ticking every leaf of a district promotes
+   to the district value, and unticking one leaf of a fully ticked
+   district expands the district back into its remaining leaves. */
+var LOC_CHILDREN = {}, LOC_PARENT = {};
+function locOpt(ms, v){ for(var i=0;i<ms.options.length;i++){ if(ms.options[i].v===v) return ms.options[i]; } return null; }
+function locDisplayChecked(sel, o){
+  if(o.node==="district") return sel.has(o.v);
+  var p = LOC_PARENT[o.v];
+  return sel.has(o.v) || (p ? sel.has(p) : false);
+}
+function locDisplayIndeterminate(sel, o){
+  if(o.node!=="district" || sel.has(o.v)) return false;
+  var kids = LOC_CHILDREN[o.v] || [];
+  for(var i=0;i<kids.length;i++){ if(sel.has(kids[i])) return true; }
+  return false;
+}
+function treeToggle(ms, v, checked){
+  var draft = ms.draft, o = locOpt(ms, v);
+  if(!o) return;
+  if(o.node==="district"){
+    var kids = LOC_CHILDREN[v] || [];
+    kids.forEach(function(k){ draft.delete(k); });
+    if(checked) draft.add(v); else draft.delete(v);
+    return;
+  }
+  var p = LOC_PARENT[v];
+  if(checked){
+    if(p && draft.has(p)) return; /* already covered by the district pick */
+    draft.add(v);
+    if(p){
+      var all = LOC_CHILDREN[p] || [];
+      var full = all.length>0;
+      all.forEach(function(k){ if(!draft.has(k)) full = false; });
+      if(full){ all.forEach(function(k){ draft.delete(k); }); draft.add(p); }
+    }
+  } else {
+    if(p && draft.has(p)){
+      /* Untick one leaf of a fully ticked district: expand the
+         district pick into every other leaf, minus this one. */
+      draft.delete(p);
+      (LOC_CHILDREN[p] || []).forEach(function(k){ if(k!==v) draft.add(k); });
+    } else {
+      draft.delete(v);
+    }
+  }
+}
+function syncTreeChecks(ms){
+  var sel = draftSel(ms);
+  ms.list.querySelectorAll("input[type=checkbox]").forEach(function(cb){
+    var o = locOpt(ms, cb.getAttribute("data-v")); if(!o) return;
+    cb.checked = locDisplayChecked(sel, o);
+    cb.indeterminate = locDisplayIndeterminate(sel, o);
+  });
+}
+function applyTreeIndeterminate(ms){
+  var sel = draftSel(ms);
+  ms.list.querySelectorAll("input[type=checkbox]").forEach(function(cb){
+    var o = locOpt(ms, cb.getAttribute("data-v")); if(!o) return;
+    cb.indeterminate = locDisplayIndeterminate(sel, o);
+  });
 }
 function renderMSList(ms, q){
   var sel = draftSel(ms);
   var html = "", lastGroup = null, any = false;
+  var show = null;
+  if(ms.tree && q){
+    /* Searching the tree keeps the shape: a district row stays when
+       any of its leaves match, and a matching district shows all of
+       its leaves. */
+    show = {};
+    ms.options.forEach(function(o){ if(o.t.toLowerCase().indexOf(q)>-1) show[o.v] = true; });
+    ms.options.forEach(function(o){
+      if(o.node==="district"){
+        var kids = LOC_CHILDREN[o.v] || [];
+        if(show[o.v]) kids.forEach(function(k){ show[k] = true; });
+        else if(kids.some(function(k){ return show[k]; })) show[o.v] = true;
+      }
+    });
+  }
   ms.options.forEach(function(o){
-    if(q && o.t.toLowerCase().indexOf(q)===-1) return;
+    if(q){
+      if(ms.tree){ if(!show[o.v]) return; }
+      else if(o.t.toLowerCase().indexOf(q)===-1) return;
+    }
     any = true;
     if(o.g && o.g!==lastGroup){ html += '<div class="ms-ghead">'+esc(o.g)+'</div>'; lastGroup = o.g; }
-    html += '<label class="ms-opt"><input type="checkbox" data-v="'+esc(o.v)+'" aria-label="'+esc(o.t)+'"'+(sel.has(o.v)?" checked":"")+' /><span class="ms-t">'+esc(o.t)+'</span><span class="ms-c">'+o.c+'</span></label>';
+    var checked = ms.tree ? locDisplayChecked(sel, o) : sel.has(o.v);
+    var cls = ms.tree ? ("ms-opt lvl" + (o.level||0)) : "ms-opt";
+    html += '<label class="'+cls+'"><input type="checkbox" data-v="'+esc(o.v)+'" aria-label="'+esc(o.t)+'"'+(checked?" checked":"")+' /><span class="ms-t">'+esc(o.t)+'</span><span class="ms-c">'+o.c+'</span></label>';
   });
   ms.list.innerHTML = any ? html : '<div class="ms-ghead">No options match</div>';
+  if(ms.tree) applyTreeIndeterminate(ms);
 }
 function syncMS(ms){
+  if(!ms) return;
   var sel = state.sel[ms.key];
   ms.btn.classList.toggle("has-sel", sel.size>0);
   ms.n.hidden = sel.size===0;
@@ -1155,20 +1486,37 @@ function syncMS(ms){
 function syncAllMS(){ Object.keys(MS).forEach(function(k){ syncMS(MS[k]); }); }
 function closeMS(ms){
   if(!ms) return;
-  ms.panel.hidden = true;
-  ms.btn.setAttribute("aria-expanded","false");
   updatePending(ms);
+  ms.btn.setAttribute("aria-expanded","false");
+  if(ms.panel.hidden) return;
+  if(prefersReducedMotion()){ ms.panel.hidden = true; ms.panel.classList.remove("is-closing","is-opening"); return; }
+  if(ms.panel.classList.contains("is-closing")) return;
+  ms.panel.classList.remove("is-opening");
+  ms.panel.classList.add("is-closing");
+  if(ms._closeTimer) clearTimeout(ms._closeTimer);
+  ms._closeTimer = setTimeout(function(){ ms.panel.hidden = true; ms.panel.classList.remove("is-closing"); ms._closeTimer = null; }, 300);
 }
 function toggleMS(ms){
-  var opening = ms.panel.hidden;
+  var opening = ms.panel.hidden || ms.panel.classList.contains("is-closing");
   closeAllMS();
   if(opening){
     if(!ms.draft) ms.draft = new Set(state.sel[ms.key]);
+    if(ms._closeTimer){ clearTimeout(ms._closeTimer); ms._closeTimer = null; }
+    ms.panel.classList.remove("is-closing");
     ms.panel.hidden = false;
     ms.btn.setAttribute("aria-expanded","true");
     renderMSList(ms, ms.search ? ms.search.value.trim().toLowerCase() : "");
     updateDraftUI(ms);
-    if(ms.search) ms.search.focus();
+    animatePanelOpen(ms);
+    /* Opening a panel must do NOTHING else: no scroll, no view change,
+       no jump to the results. The old code focused the panel search box
+       unconditionally, and the browser scrolls a newly focused element
+       into view, which threw the user down the page the moment a panel
+       opened. Only auto-focus on a fine pointer (desktop), and even
+       then with preventScroll so the page cannot move. */
+    if(ms.search && window.matchMedia && window.matchMedia("(pointer:fine)").matches){
+      try{ ms.search.focus({preventScroll:true}); }catch(e){}
+    }
   } else {
     /* Closing by tapping the button again keeps the draft, like an
        outside tap or Escape: only Cancel discards it. */
@@ -1188,12 +1536,15 @@ function filteredJobs(){
   var sel = state.sel;
   var out = DATA.jobs.filter(function(j){
     if(state.savedOnly && !saved.has(j.id)) return false;
-    var keys = ["area","district","city","firm","field","level","setting","license","size"];
+    var keys = ["firm","field","setting","license","size"];
     for(var i=0;i<keys.length;i++){ var s = sel[keys[i]]; if(s.size && !s.has(jobVal(j, keys[i]))) return false; }
-    if(sel.maxexp.size){
-      var ok = false;
-      sel.maxexp.forEach(function(cap){ if(qualifiesMaxExp(j, cap)) ok = true; });
-      if(!ok) return false;
+    if(sel.location.size && !jobMatchesLocation(j, sel.location)) return false;
+    if(state.quick==="chicagoland" && j.areaGroup!=="Chicagoland") return false;
+    if(sel.exp.size){
+      var lv = [], caps = [];
+      sel.exp.forEach(function(v){ if(v.indexOf("level:")===0) lv.push(v.slice(6)); else if(v.indexOf("cap:")===0) caps.push(v.slice(4)); });
+      if(lv.length && lv.indexOf(j.level)===-1) return false;
+      if(caps.length){ var eok = false; caps.forEach(function(cap){ if(qualifiesMaxExp(j, cap)) eok = true; }); if(!eok) return false; }
     }
     if(sel.pay.size){
       var pok = false;
@@ -1318,9 +1669,9 @@ function renderJobs(reset){
   _restoreScroll();
 }
 function selCount(){ var n = 0; Object.keys(state.sel).forEach(function(k){ n += state.sel[k].size; }); return n; }
-function isFiltered(){ return !!(state.q || selCount() || state.direct || state.pay || state.nope); }
+function isFiltered(){ return !!(state.q || state.quick || selCount() || state.direct || state.pay || state.nope); }
 
-var GROUP_LABELS = { area:"Area", district:"District", city:"City", firm:"Firm", field:"Field", level:"Level", setting:"Setting", license:"License", maxexp:"Max experience", pay:"Pay", size:"Company size" };
+var GROUP_LABELS = { location:"Location", firm:"Firm", field:"Discipline", exp:"Experience", setting:"Setting", license:"License", pay:"Pay", size:"Company size" };
 function optLabel(key, v){
   if(!MS[key]) return v;
   var o = MS[key].options.filter(function(x){ return x.v===v; })[0];
@@ -1403,10 +1754,102 @@ function restoreOrAnchor(name){
   }
   scrollToViewAnchor(name);
 }
+/* ---------- smooth transition helpers ----------
+   Slow, gentle ease-out motion only: view fades are transform/opacity, so they
+   never affect layout or scroll math, and scroll restoration below
+   stays instant (jumpTo) so the fade never fights the landing spot.
+   Everything here collapses to instant changes when the visitor's
+   system prefers reduced motion. */
+function prefersReducedMotion(){ try{ return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }catch(e){ return false; } }
+function animateViewEnter(name){
+  if(prefersReducedMotion()) return;
+  var el = $("view-"+name); if(!el) return;
+  el.classList.remove("is-entering");
+  void el.offsetWidth;
+  el.classList.add("is-entering");
+  if(el._enterTimer) clearTimeout(el._enterTimer);
+  el._enterTimer = setTimeout(function(){ el.classList.remove("is-entering"); }, 460);
+}
+function smoothJumpTo(y){
+  if(y<0) y = 0;
+  if(prefersReducedMotion()){ jumpTo(y); return; }
+  try{ window.scrollTo({top:y, left:0, behavior:"smooth"}); }catch(e){ jumpTo(y); }
+}
+function smoothScrollToEl(el, adjust){
+  if(!el){ smoothJumpTo(0); return; }
+  var y = el.getBoundingClientRect().top + window.scrollY - topbarOffset() - (adjust||0);
+  smoothJumpTo(y);
+}
+function animatePanelOpen(ms){
+  var p = ms && ms.panel; if(!p) return;
+  if(ms._closeTimer){ clearTimeout(ms._closeTimer); ms._closeTimer = null; }
+  p.classList.remove("is-closing");
+  if(prefersReducedMotion()){ p.classList.remove("is-opening"); return; }
+  p.classList.remove("is-opening");
+  void p.offsetWidth;
+  p.classList.add("is-opening");
+  if(ms._openTimer) clearTimeout(ms._openTimer);
+  ms._openTimer = setTimeout(function(){ p.classList.remove("is-opening"); ms._openTimer = null; }, 400);
+}
+/* Mobile filter card collapse/expand with a real height animation.
+   On desktop the body is always visible, so this is an instant toggle
+   there; the toggle button text and aria state always follow. */
+function animateFilterBody(open){
+  var card = $("filterCard"), tg = $("filterToggle"); if(!card) return;
+  var body = card.querySelector(".filter-body"); if(!body) return;
+  function finish(){ body.style.height = ""; body.style.opacity = ""; body.style.transition = ""; body.style.overflow = ""; }
+  if(card._filterTimer){ clearTimeout(card._filterTimer); card._filterTimer = null; }
+  if(tg){ tg.setAttribute("aria-expanded", open ? "true" : "false"); tg.textContent = open ? "Hide filters" : "Show filters"; }
+  if(window.innerWidth>860 || prefersReducedMotion()){
+    card._filterClosing = false;
+    card.classList.toggle("open", open);
+    finish();
+    return;
+  }
+  if(open){
+    card._filterClosing = false;
+    var startH = card.classList.contains("open") ? body.offsetHeight : 0;
+    card.classList.add("open");
+    var targetH = body.scrollHeight;
+    body.style.overflow = "hidden"; body.style.height = startH + "px"; body.style.opacity = startH ? "1" : "0";
+    void body.offsetHeight;
+    body.style.transition = "height 360ms cubic-bezier(.22,1,.36,1), opacity 360ms cubic-bezier(.25,.8,.3,1)";
+    body.style.height = targetH + "px"; body.style.opacity = "1";
+    card._filterTimer = setTimeout(function(){ finish(); card._filterTimer = null; }, 400);
+  } else {
+    if(!card.classList.contains("open") && !card._filterClosing) return;
+    card._filterClosing = true;
+    var curH = body.offsetHeight;
+    body.style.overflow = "hidden"; body.style.height = curH + "px"; body.style.opacity = "1";
+    void body.offsetHeight;
+    body.style.transition = "height 280ms cubic-bezier(.22,1,.36,1), opacity 240ms cubic-bezier(.25,.8,.3,1)";
+    body.style.height = "0px"; body.style.opacity = "0";
+    card._filterTimer = setTimeout(function(){ card.classList.remove("open"); card._filterClosing = false; finish(); card._filterTimer = null; }, 320);
+  }
+}
+function openMenu(){
+  var m = $("navMenu"), b = $("menuBtn"); if(!m) return;
+  if(m._closeTimer){ clearTimeout(m._closeTimer); m._closeTimer = null; }
+  m.classList.remove("is-closing");
+  m.hidden = false;
+  if(b){ b.setAttribute("aria-expanded","true"); b.setAttribute("aria-label","Close menu"); }
+  if(prefersReducedMotion()){ m.classList.remove("is-opening"); return; }
+  m.classList.remove("is-opening");
+  void m.offsetWidth;
+  m.classList.add("is-opening");
+  if(m._openTimer) clearTimeout(m._openTimer);
+  m._openTimer = setTimeout(function(){ m.classList.remove("is-opening"); m._openTimer = null; }, 400);
+}
 function closeMenu(){
   var m = $("navMenu"), b = $("menuBtn");
-  if(m) m.hidden = true;
   if(b){ b.setAttribute("aria-expanded","false"); b.setAttribute("aria-label","Open menu"); }
+  if(!m || m.hidden) return;
+  if(prefersReducedMotion()){ m.hidden = true; m.classList.remove("is-closing","is-opening"); return; }
+  if(m.classList.contains("is-closing")) return;
+  m.classList.remove("is-opening");
+  m.classList.add("is-closing");
+  if(m._closeTimer) clearTimeout(m._closeTimer);
+  m._closeTimer = setTimeout(function(){ m.hidden = true; m.classList.remove("is-closing"); m._closeTimer = null; }, 300);
 }
 function switchView(name, opts){
   opts = opts || {};
@@ -1426,14 +1869,15 @@ function switchView(name, opts){
   if(name==="companies") renderCompanies();
   currentViewName = name;
   currentViewKey = scrollViewKey(name);
-  if(opts.scroll==="none") return;
+  if(opts.scroll==="none"){ animateViewEnter(name); return; }
   /* Defer the landing scroll one frame: callers that re-render right after
      switchView (Saved toggle, search, quick filters) finish their DOM
      update first, so the anchor and remembered positions are measured
      against the final layout (Saved hides the masthead, Jobs shows it). */
   var land = function(){
-    if(opts.scroll==="anchor"){ scrollToViewAnchor(name); return; }
+    if(opts.scroll==="anchor"){ scrollToViewAnchor(name); animateViewEnter(name); return; }
     if(name==="jobs"){ restoreOrAnchor(name); } else { jumpTo(0); }
+    animateViewEnter(name);
   };
   if(window.requestAnimationFrame) window.requestAnimationFrame(land); else land();
 }
@@ -1503,6 +1947,7 @@ function applySnapshot(snap){
   syncAllMS();
   if(currentViewName !== "jobs"){ switchView("jobs", {scroll:"none"}); }
   renderJobs(false);
+  animateViewEnter("jobs");
   var y = typeof snap.scrollY === "number" ? snap.scrollY : 0;
   jumpTo(y);
   if(window.requestAnimationFrame) window.requestAnimationFrame(function(){ jumpTo(y); });
@@ -1564,37 +2009,96 @@ document.addEventListener("touchcancel", function(){ edgeSwipe = null; }, {passi
 function countsBy(list, fn){ var m = {}; list.forEach(function(x){ var k = fn(x); if(k!=null) m[k]=(m[k]||0)+1; }); return m; }
 function setupFilters(){
   var jobs = DATA.jobs;
-  var ac = countsBy(jobs, function(j){ return j.areaGroup; });
-  buildMS("area", "ms-area", "lbl-area", "All areas", ["Chicagoland","Rest of Illinois"].filter(function(a){ return ac[a]; }).map(function(a){ return {v:a, t:a, c:ac[a]}; }), false);
-  var dc = countsBy(jobs, function(j){ return j.district ? String(j.district) : "none"; });
-  var dopts = Object.keys(dc).filter(function(d){ return d!=="none"; }).sort(function(a,b){return a-b;}).map(function(d){ return {v:d, t:"District "+d+" · "+DIST_NAMES[d], c:dc[d]}; });
-  if(dc["none"]) dopts.push({v:"none", t:"District not listed", c:dc["none"]});
-  buildMS("district", "ms-district", "lbl-district", "All districts", dopts, false);
-  /* Cities grouped by area so Chicagoland suburbs are recognizable */
-  var cc = countsBy(jobs, function(j){ return j.city; });
-  var cityArea = {};
-  jobs.forEach(function(j){ if(!cityArea[j.city]) cityArea[j.city] = j.areaGroup; });
-  var cityOpts = Object.keys(cc).sort(function(a,b){ return (cityArea[a]===cityArea[b] ? (cc[b]-cc[a] || a.localeCompare(b)) : (cityArea[a]==="Chicagoland" ? -1 : 1)); })
-    .map(function(c){ return {v:c, t:c, c:cc[c], g:cityArea[c]}; });
-  buildMS("city", "ms-city", "lbl-city", "All cities", cityOpts, true);
-  var fmc = countsBy(jobs, function(j){ return j.firm; });
-  buildMS("firm", "ms-firm", "lbl-firm", "All firms", Object.keys(fmc).sort(function(a,b){return a.localeCompare(b);}).map(function(f){ return {v:f, t:f, c:fmc[f]}; }), true);
+  /* Location: a tree. Top level is the IDOT districts in number
+     order. Indented under each district are its Illinois cities, one
+     city per leaf, A to Z, plus any region phrase that belongs to
+     that district in its exact wording (every Chicagoland variant
+     sits under District 1). Every job is indexed under each place
+     its listing mentions (see parseJobPlaces), and each city sits
+     under the one district it belongs to (see buildCityDistrict),
+     whether or not the job itself carries that district. The final
+     branch, "No district listed", holds only the places no Illinois
+     district can claim: out-of-state places and non-city descriptors
+     that belong to no single district, each one its own separate
+     leaf, A to Z. No leaf joins two places, and branch counts
+     overlap where a job mentions places in more than one branch, so
+     they are not expected to add up to the job total. */
+  buildCityVocab(jobs);
+  jobs.forEach(function(j){ var p = parseJobPlaces(j); j.cityNames = p.cities; j.regionPlaces = p.regions; j.otherPlaces = p.others; });
+  buildCityDistrict(jobs);
+  jobs.forEach(function(j){
+    j.placeKeys = []; j.otherKeys = []; j.regionKeys = []; j.districtsCovered = [];
+    j.cityNames.forEach(function(c){
+      var d = CITY_DISTRICT[c];
+      if(d==null) return;
+      j.placeKeys.push("city:" + d + ":" + c);
+      if(j.districtsCovered.indexOf(d)===-1) j.districtsCovered.push(d);
+    });
+    j.regionPlaces.forEach(function(r){
+      var k = "region:" + r.district + ":" + r.label;
+      j.placeKeys.push(k); j.regionKeys.push(k);
+      if(j.districtsCovered.indexOf(r.district)===-1) j.districtsCovered.push(r.district);
+    });
+    j.otherPlaces.forEach(function(o){
+      var k = "other:" + o;
+      j.placeKeys.push(k); j.otherKeys.push(k);
+    });
+  });
+  LOC_CHILDREN = {}; LOC_PARENT = {};
+  var locOpts = [];
+  function addLeaf(parentV, opt){ locOpts.push(opt); (LOC_CHILDREN[parentV] = LOC_CHILDREN[parentV] || []).push(opt.v); LOC_PARENT[opt.v] = parentV; }
+  var distNums = [];
+  jobs.forEach(function(j){ j.districtsCovered.forEach(function(d){ if(distNums.indexOf(d)===-1) distNums.push(d); }); });
+  distNums.sort(function(a, b){ return a-b; });
+  distNums.forEach(function(d){
+    var dJobs = jobs.filter(function(j){ return j.districtsCovered.indexOf(d)>-1; });
+    var dv = "district:" + d;
+    locOpts.push({v:dv, t:"District " + d, c:dJobs.length, level:0, node:"district"});
+    var cc = {};
+    dJobs.forEach(function(j){
+      j.cityNames.forEach(function(c){ if(CITY_DISTRICT[c]===d) cc[c] = (cc[c]||0)+1; });
+    });
+    var rc = {};
+    dJobs.forEach(function(j){
+      j.regionPlaces.forEach(function(r){ if(r.district===d) rc[r.label] = (rc[r.label]||0)+1; });
+    });
+    /* City leaves and this district's region leaves share one A to Z
+       order under the district, so Chicagoland sits with the C names
+       under District 1 rather than in a block of its own. */
+    var dLeaves = Object.keys(cc).map(function(c){ return {v:"city:" + d + ":" + c, t:c, c:cc[c], level:1, node:"leaf"}; })
+      .concat(Object.keys(rc).map(function(lt){ return {v:"region:" + d + ":" + lt, t:lt, c:rc[lt], level:1, node:"leaf"}; }));
+    dLeaves.sort(function(a, b){ return a.t.localeCompare(b.t); }).forEach(function(o){ addLeaf(dv, o); });
+  });
+  var ndJobs = jobs.filter(function(j){ return j.otherPlaces.length; });
+  if(ndJobs.length){
+    locOpts.push({v:"district:none", t:"No district listed", c:ndJobs.length, level:0, node:"district"});
+    var ndc = {};
+    ndJobs.forEach(function(j){ j.otherPlaces.forEach(function(o){ ndc[o] = (ndc[o]||0)+1; }); });
+    Object.keys(ndc).sort(function(a, b){ return a.localeCompare(b); }).forEach(function(lt){
+      addLeaf("district:none", {v:"other:" + lt, t:lt, c:ndc[lt], level:1, node:"leaf"});
+    });
+  }
+  buildMS("location", "ms-location", "lbl-location", "All locations", locOpts, true, true);
   var fc = countsBy(jobs, function(j){ return j.field; });
-  buildMS("field", "ms-field", "lbl-field", "All fields", Object.keys(fc).sort().map(function(f){ return {v:f, t:f, c:fc[f]}; }), false);
+  buildMS("field", "ms-field", "lbl-field", "All disciplines", Object.keys(fc).sort().map(function(f){ return {v:f, t:f, c:fc[f]}; }), false);
+  /* Experience is one filter with two plain groups: the level the role is
+     pitched at, and the most experience a job can ask for. Picks from the
+     two groups combine the way the old separate filters did. */
   var lc = countsBy(jobs, function(j){ return j.level; });
   var levelOrder = ["Intern / Graduate","0-2 years","3-5 years","5-9 years","10+ years","Not stated"];
-  buildMS("level", "ms-level", "lbl-level", "All levels", levelOrder.filter(function(l){ return lc[l]; }).map(function(l){ return {v:l, t:l, c:lc[l]}; }), false);
+  function maxCount(cap){ return jobs.filter(function(j){ return qualifiesMaxExp(j, cap); }).length; }
+  var expOpts = levelOrder.filter(function(l){ return lc[l]; }).map(function(l){ return {v:"level:"+l, t:l, c:lc[l], g:"Role level"}; })
+    .concat([
+      {v:"cap:0", t:"Internships & entry \u00b7 0 yrs", c:maxCount(0), g:"Jobs asking at most"},
+      {v:"cap:2", t:"Up to 2 years", c:maxCount(2), g:"Jobs asking at most"},
+      {v:"cap:5", t:"Up to 5 years", c:maxCount(5), g:"Jobs asking at most"},
+      {v:"cap:10", t:"Up to 10 years", c:maxCount(10), g:"Jobs asking at most"}
+    ]);
+  buildMS("exp", "ms-exp", "lbl-exp", "Any experience", expOpts, false);
   var sc = countsBy(jobs, function(j){ return j.setting; });
   buildMS("setting", "ms-setting", "lbl-setting", "All settings", Object.keys(sc).sort().map(function(s){ return {v:s, t:s, c:sc[s]}; }), false);
   var licCounts = countsBy(jobs, function(j){ return j.licenseGroup; });
   buildMS("license", "ms-license", "lbl-license", "Any license", LIC_ORDER.filter(function(k){ return licCounts[k]; }).map(function(k){ return {v:k, t:k, c:licCounts[k]}; }), false);
-  function maxCount(cap){ return jobs.filter(function(j){ return qualifiesMaxExp(j, cap); }).length; }
-  buildMS("maxexp", "ms-maxexp", "lbl-maxexp", "Any experience", [
-    {v:"0", t:"Internships & entry · 0 yrs", c:maxCount(0)},
-    {v:"2", t:"Up to 2 years", c:maxCount(2)},
-    {v:"5", t:"Up to 5 years", c:maxCount(5)},
-    {v:"10", t:"Up to 10 years", c:maxCount(10)}
-  ], false);
   buildMS("pay", "ms-pay", "lbl-pay", "Any pay", PAY_BANDS.map(function(b){
     return {v:b.v, t:b.t, c: jobs.filter(function(j){ return payMatchesBand(j, b); }).length};
   }), false);
@@ -1615,9 +2119,9 @@ function applyQuick(kind){
   clearFilters(false);
   if(!wasActive){
     state.quick = kind;
-    if(kind==="chicagoland") state.sel.area.add("Chicagoland");
-    else if(kind==="intern") state.sel.level.add("Intern / Graduate");
-    else if(kind==="entry") state.sel.maxexp.add("2");
+    if(kind==="chicagoland"){ /* the flag itself is the filter: filteredJobs checks areaGroup for it */ }
+    else if(kind==="intern") state.sel.exp.add("level:Intern / Graduate");
+    else if(kind==="entry") state.sel.exp.add("cap:2");
     else if(kind==="construction") state.sel.field.add("Construction Engineering & Inspection");
     else if(kind==="pay") state.pay=true;
     else if(kind==="direct") state.direct=true;
@@ -1635,10 +2139,8 @@ function bind(){
   if(menuBtn && navMenu){
     menuBtn.addEventListener("click", function(e){
       e.stopPropagation();
-      var opening = navMenu.hidden;
-      navMenu.hidden = !opening;
-      menuBtn.setAttribute("aria-expanded", opening);
-      menuBtn.setAttribute("aria-label", opening ? "Close menu" : "Open menu");
+      var opening = navMenu.hidden || navMenu.classList.contains("is-closing");
+      if(opening) openMenu(); else closeMenu();
     });
     navMenu.addEventListener("click", function(e){ e.stopPropagation(); });
     document.addEventListener("click", function(e){ if(!navMenu.hidden && !navMenu.contains(e.target) && e.target!==menuBtn) closeMenu(); });
@@ -1647,7 +2149,7 @@ function bind(){
   }
   var brandHome = $("brandHome");
   if(brandHome) brandHome.addEventListener("click", function(){ switchView("home"); });
-  $("searchForm").addEventListener("submit", function(e){ e.preventDefault(); updateCurrentHistScroll(); state.q = $("searchInput").value; state.quick=""; switchView("jobs", {scroll:"anchor"}); renderJobs(true); scrollToViewAnchor("jobs"); recordHistory(); });
+  $("searchForm").addEventListener("submit", function(e){ e.preventDefault(); updateCurrentHistScroll(); state.q = $("searchInput").value; if(state.quick!=="chicagoland") state.quick=""; switchView("jobs", {scroll:"anchor"}); renderJobs(true); scrollToViewAnchor("jobs"); recordHistory(); });
   var deb; $("searchInput").addEventListener("input", function(){ clearTimeout(deb); deb = setTimeout(function(){ state.q = $("searchInput").value; if(!$("view-jobs").hidden) renderJobs(true); }, 220); });
   $("fSort").addEventListener("change", function(){ updateCurrentHistScroll(); state.sort = this.value; renderJobs(true); recordHistory(); });
   document.querySelectorAll("[data-goto]").forEach(function(b){ b.addEventListener("click", function(){ switchView(b.getAttribute("data-goto")); }); });
@@ -1655,21 +2157,21 @@ function bind(){
   var jumpTopBtn = $("jumpTopBtn"), jumpBottomBtn = $("jumpBottomBtn");
   if(jumpTopBtn) jumpTopBtn.addEventListener("click", function(){
     var el = state.savedOnly ? (($("savedHeader") && !$("savedHeader").hidden) ? $("savedHeader") : $("resultsMeta")) : ($("filterCard") || $("resultsMeta"));
-    if(el){ var y = el.getBoundingClientRect().top + window.scrollY - topbarOffset(); if(y<0) y=0; try{ window.scrollTo({top:y, left:0, behavior:"smooth"}); }catch(err){ jumpTo(y); } }
+    if(el){ var y = el.getBoundingClientRect().top + window.scrollY - topbarOffset(); if(y<0) y=0; smoothJumpTo(y); }
   });
   if(jumpBottomBtn) jumpBottomBtn.addEventListener("click", function(){
     var wrapEl = $("loadMoreWrap"); var target = (wrapEl && !wrapEl.hidden) ? wrapEl : $("jobsArea");
-    if(target){ var y = target.getBoundingClientRect().bottom + window.scrollY - window.innerHeight + 20; if(y<0) y=0; try{ window.scrollTo({top:y, left:0, behavior:"smooth"}); }catch(err){ jumpTo(y); } }
+    if(target){ var y = target.getBoundingClientRect().bottom + window.scrollY - window.innerHeight + 20; if(y<0) y=0; smoothJumpTo(y); }
   });
-  $("tDirect").addEventListener("click", function(){ updateCurrentHistScroll(); state.direct=!state.direct; state.quick=""; renderJobs(true); recordHistory(); });
-  $("tPay").addEventListener("click", function(){ updateCurrentHistScroll(); state.pay=!state.pay; state.quick=""; renderJobs(true); recordHistory(); });
-  $("tNoPE").addEventListener("click", function(){ updateCurrentHistScroll(); state.nope=!state.nope; state.quick=""; renderJobs(true); recordHistory(); });
+  $("tDirect").addEventListener("click", function(){ updateCurrentHistScroll(); state.direct=!state.direct; if(state.quick!=="chicagoland") state.quick=""; renderJobs(true); recordHistory(); });
+  $("tPay").addEventListener("click", function(){ updateCurrentHistScroll(); state.pay=!state.pay; if(state.quick!=="chicagoland") state.quick=""; renderJobs(true); recordHistory(); });
+  $("tNoPE").addEventListener("click", function(){ updateCurrentHistScroll(); state.nope=!state.nope; if(state.quick!=="chicagoland") state.quick=""; renderJobs(true); recordHistory(); });
   $("clearBtn").addEventListener("click", function(){ updateCurrentHistScroll(); clearFilters(true); recordHistory(); });
   document.querySelectorAll(".qchip").forEach(function(c){ c.addEventListener("click", function(){ applyQuick(c.getAttribute("data-quick")); }); });
   $("loadMoreBtn").addEventListener("click", function(){ state.shown += PAGE; renderJobs(false); if(histReady && histStack[histIndex]){ histStack[histIndex].shown = state.shown; } });
   $("filterToggle").addEventListener("click", function(){
-    var card = $("filterCard"); var open = card.classList.toggle("open");
-    this.setAttribute("aria-expanded", open); this.textContent = open ? "Hide filters" : "Show filters";
+    var card = $("filterCard");
+    animateFilterBody(!card.classList.contains("open") || !!card._filterClosing);
   });
   if(window.innerWidth>860){ $("filterCard").classList.add("open"); }
   $("savedBtn").addEventListener("click", function(){
@@ -1705,8 +2207,8 @@ function bind(){
       else if(group==="direct") state.direct=false;
       else if(group==="pay") state.pay=false;
       else if(group==="nope") state.nope=false;
-      else { state.sel[group].delete(value); if(MS[group]){ MS[group].draft=null; } syncMS(MS[group]); }
-      state.quick=""; renderJobs(true); recordHistory(); return;
+      else { state.sel[group].delete(value); if(MS[group]){ MS[group].draft=null; syncMS(MS[group]); } }
+      if(state.quick!=="chicagoland") state.quick=""; renderJobs(true); recordHistory(); return;
     }
     var fv = e.target.closest("[data-firm]");
     if(fv){ goToFirmJobs(fv.getAttribute("data-firm")); }
@@ -1747,7 +2249,7 @@ updateVisitorCount();
    stale). A scheduled job can replace that one file on its own and the
    live site picks it up without the page itself being rebuilt.
    If that fetch fails, the file is missing, or its shape does not match
-   the dataset (as inside the Muse preview, where no sibling data.json
+   the dataset (as inside the preview, where no sibling data.json
    is served), the page falls back silently to the snapshot bundled with
    the site at assets/data.json, exactly as before, so it never renders
    empty. */
@@ -1772,7 +2274,7 @@ function initWithData(d){
   var directLinks = DATA.jobs.filter(function(j){ return !!j.applyUrl; }).length;
   var payListed = DATA.jobs.filter(function(j){ return j.payMaxAnnual!=null; }).length;
   [["homeStatJobs",DATA.jobs.length],["homeTileJobs",DATA.jobs.length],["homeStatFirms",DATA.companies.length],["homeTileFirms",DATA.companies.length],["homeStatLinks",directLinks],["homeStatPay",payListed]].forEach(function(pair){ var el = $(pair[0]); if(el) el.textContent = pair[1]; });
-  setupFilters(); bind(); updateSavedCount(); renderJobs(true); initHistory();
+  setupFilters(); bind(); animateViewEnter("home"); updateSavedCount(); renderJobs(true); initHistory();
 }
 function loadEmbeddedData(){
   return fetch("assets/data.json").then(function(r){ if(!r.ok) throw new Error("data"); return r.json(); }).then(function(d){
