@@ -4,7 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#1e5631" />
 <link rel="icon" href="data:," />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icon-192.png" />
 <title>Illinois Engineering Jobs</title>
 <meta name="description" content="Illinois Engineering Jobs: every open engineering role at the firms working on IDOT and Illinois Tollway projects, collected from the firms' own careers pages and kept current by hand by Mohammed Shajiuddin Khan." />
 <meta property="og:title" content="Illinois Engineering Jobs" />
@@ -1448,6 +1451,26 @@ fetch("data.json?v=" + encodeURIComponent(feedDay)).then(function(r){ if(!r.ok) 
     $("jobsArea").innerHTML = '<div class="empty"><h3>The board could not load</h3><p>Please reopen the page. If this keeps happening, the underlying job data file may still be updating.</p></div>';
   });
 });
+})();
+</script>
+<script>
+/* PWA: register the service worker only on a real http(s) host (the
+   GitHub Pages site). Inside previews or other embeds where sw.js is
+   not served, registration fails silently and the page works exactly
+   as before; nothing here is required for the page to render. */
+(function(){
+  try{
+    if(!("serviceWorker" in navigator)) return;
+    var loc = window.location;
+    if(!loc || (loc.protocol!=="http:" && loc.protocol!=="https:")) return;
+    if(!loc.hostname) return;
+    window.addEventListener("load", function(){
+      try{
+        var reg = navigator.serviceWorker.register("sw.js");
+        if(reg && typeof reg.catch==="function") reg.catch(function(){});
+      }catch(e){}
+    });
+  }catch(e){}
 })();
 </script>
 </body>
