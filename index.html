@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#1e5631" />
 <link rel="icon" href="data:," />
 <link rel="manifest" href="manifest.webmanifest" />
-<link rel="apple-touch-icon" href="icon-192.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <title>Illinois Engineering Jobs</title>
 <meta name="description" content="Illinois Engineering Jobs: every open engineering role at the firms working on IDOT and Illinois Tollway projects, collected from the firms' own careers pages and kept current by hand by Mohammed Shajiuddin Khan." />
 <meta property="og:title" content="Illinois Engineering Jobs" />
@@ -975,7 +975,7 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
     <span>Sources: IDOT PTBs 216–221 · Illinois Tollway PSBs 24-3 to 26-2 · Official firm careers boards</span>
     <span>View only · Applying happens on each firm's own site</span>
     <span class="footer-copy">© 2026 Mohammed Shajiuddin Khan. This board is compiled and maintained by him. Please share the link, not copies, so people always see the current version. <a href="https://wa.me/13094103603?text=Hi%20Mohammed%2C%20a%20link%20on%20your%20jobs%20board%20seems%20broken." target="_blank" rel="noopener noreferrer">Link broken? Tell me on WhatsApp</a></span>
-    <span class="footer-visitors" id="visitorLine">Visitors: <span id="visTotal">–</span> · Today: <span id="visToday">–</span></span>
+    <span class="footer-visitors" id="visitorLine" hidden><span id="visTotalWrap" hidden>Visitors <span id="visTotal"></span></span><span id="visSep" hidden> · </span><span id="visTodayWrap" hidden>Today <span id="visToday"></span></span></span>
   </div>
 </footer>
 <script>
@@ -2213,28 +2213,58 @@ function bind(){
 }
 function updateSavedCount(){ $("savedCount").textContent = saved.size; }
 
-/* Visitor count: this static page has no shared backend, so this is a
-   per-device visit count stored in this browser only. It is not a
-   shared total across all visitors. */
+/* Shared unique visitor count. Each browser is counted once for the
+   total and once per Chicago calendar day. Refreshes from the same
+   browser read the current shared values without incrementing them.
+   Counts appear only when their request succeeds, so an unreachable
+   counter leaves the footer clean instead of showing a wrong number.
+   This runs without blocking the rest of the page. */
 function updateVisitorCount(){
   try{
-    var today = new Date().toISOString().slice(0,10);
-    var total = parseInt(localStorage.getItem("il-jobs-visits-total")||"0",10) || 0;
-    var storedDate = localStorage.getItem("il-jobs-visits-date")||"";
-    var todayCount = parseInt(localStorage.getItem("il-jobs-visits-today")||"0",10) || 0;
-    total += 1;
-    if(storedDate !== today){ todayCount = 1; } else { todayCount += 1; }
-    localStorage.setItem("il-jobs-visits-total", String(total));
-    localStorage.setItem("il-jobs-visits-date", today);
-    localStorage.setItem("il-jobs-visits-today", String(todayCount));
+    var NS = "illinois-engineering-jobs-mshajik97";
+    var BASE = "https://abacus.jasoncameron.dev";
+    var todayStr = "";
+    try{
+      todayStr = new Intl.DateTimeFormat("en-CA",{timeZone:"America/Chicago",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+    }catch(eFmt){
+      todayStr = new Date().toISOString().slice(0,10);
+    }
+    var line = $("visitorLine"), totalWrap = $("visTotalWrap"), todayWrap = $("visTodayWrap"), sep = $("visSep");
     var vt = $("visTotal"), vd = $("visToday");
-    if(vt) vt.textContent = total;
-    if(vd) vd.textContent = todayCount;
-  }catch(e){
-    var vt2 = $("visTotal"), vd2 = $("visToday");
-    if(vt2) vt2.textContent = "–";
-    if(vd2) vd2.textContent = "–";
-  }
+    function refreshVisibility(){
+      var hasT = !!(totalWrap && !totalWrap.hidden);
+      var hasD = !!(todayWrap && !todayWrap.hidden);
+      if(sep) sep.hidden = !(hasT && hasD);
+      if(line) line.hidden = !(hasT || hasD);
+    }
+    function fetchCount(key, isHit){
+      var url = BASE + "/" + (isHit ? "hit" : "get") + "/" + encodeURIComponent(NS) + "/" + encodeURIComponent(key);
+      return fetch(url).then(function(r){
+        if(!r || !r.ok) throw new Error("count");
+        return r.json();
+      }).then(function(d){
+        if(!d || typeof d.value !== "number" || !isFinite(d.value)) throw new Error("count");
+        return d.value;
+      });
+    }
+    var hasTotalFlag = false, storedDay = null, storageOk = true;
+    try{
+      hasTotalFlag = !!localStorage.getItem("iej-v-total");
+      storedDay = localStorage.getItem("iej-v-day");
+    }catch(eStore){ storageOk = false; }
+    var needHitTotal = storageOk && !hasTotalFlag;
+    var needHitDay = storageOk && (storedDay !== todayStr);
+    fetchCount("visitors-total", needHitTotal).then(function(val){
+      if(needHitTotal){ try{ localStorage.setItem("iej-v-total","1"); }catch(eSet){} }
+      if(vt && totalWrap){ vt.textContent = String(val); totalWrap.hidden = false; }
+      refreshVisibility();
+    }).catch(function(){ refreshVisibility(); });
+    fetchCount("visitors-" + todayStr, needHitDay).then(function(val){
+      if(needHitDay){ try{ localStorage.setItem("iej-v-day", todayStr); }catch(eSet2){} }
+      if(vd && todayWrap){ vd.textContent = String(val); todayWrap.hidden = false; }
+      refreshVisibility();
+    }).catch(function(){ refreshVisibility(); });
+  }catch(e){ /* Counter failure must never affect the page. */ }
 }
 
 /* ---------- init ---------- */
