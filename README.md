@@ -94,6 +94,12 @@ All dates are Nov 11, 2026 unless noted. Live means pushed to GitHub Pages (gh-p
 - Removed every piece of internal back end explanation from the visitor pages at Mohammed's instruction. Out went the filter matching explanation at the top of the filter card, the Sort by note explaining pay conversion and band matching, the district tree and matching rules inside How It Works Step 1, the verified link and lead count breakdown, the lead process wording on cards, the rolling recheck cycle lines, the underlying list and refresh wording, and the research spreadsheet phrase in the footer.
 - Kept, at his instruction, the sources line in the footer and the checked dates on job cards. The Lead label and the No official link found text stay as plain labels with no process explanation behind them. No data, counts, links, or filtering behavior changed in this pass.
 
+### App icon set and unique visitor counter, live Nov 12, 2026
+
+- Replaced the baked in white install icon with Mohammed's own Edifi.ce mark in a full icon set. The standard icons are transparent navy PNG files at 192 and 512. The maskable icons use the cream tile with the mark in deep green at the bigger safe size Mohammed picked, so the mark fills more of the tile and stays clear inside round masks. A monochrome silhouette is included for launchers that tint icons from the phone theme, and iPhones get an opaque cream apple touch icon at 180.
+- Updated the manifest to carry all five icon entries and moved the service worker cache to iej-shell-v3 so installed users pick up the new icons.
+- Replaced the old footer visit count with a shared unique visitor counter. Each browser counts once toward the total and once toward the Chicago calendar day, and refreshes only read the shared numbers. The old code that rose on every refresh is removed. If the counter service cannot be reached, the footer leaves the number out instead of showing a wrong count.
+
 ## Rules for future changes
 
 - Show Mohammed a first draft or preview first. Do not publish, upload, or push anything live until he approves that exact version.
