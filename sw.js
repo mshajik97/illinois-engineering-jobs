@@ -6,13 +6,17 @@
    each data update, with the last good copy as an offline fallback.
    Other static assets (manifest, icons): cache-first so the
    installed app opens fast and works offline. */
-var CACHE = "iej-shell-v2";
+var CACHE = "iej-shell-v3";
 var SHELL = [
   ".",
   "index.html",
   "manifest.webmanifest",
   "icon-192.png",
-  "icon-512.png"
+  "icon-512.png",
+  "icon-maskable-192.png",
+  "icon-maskable-512.png",
+  "icon-monochrome-512.png",
+  "apple-touch-icon.png"
 ];
 
 self.addEventListener("install", function (event) {
