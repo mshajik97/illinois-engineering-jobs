@@ -89,6 +89,11 @@ All dates are Nov 11, 2026 unless noted. Live means pushed to GitHub Pages (gh-p
 - Removed an entry from the Credentials list on the About page that said Mohammed is a mentor in a mentorship program he only applied to. He is not a mentor in that program, so the entry came out completely and nothing replaced it. The program name now appears nowhere on the page.
 - Rewrote the Why I built this board section on the About page in Mohammed's own approved words. The new text says the openings are spread across 195 company websites, that he put them together in one place and keeps the board updated, and that the board is for students, recent grads, and anyone searching for a role in Illinois civil engineering. The earlier wording that presented him as an experienced insider and gave advice as a mentor was removed at his instruction.
 
+### Back end wording cleanup, live Nov 11, 2026
+
+- Removed every piece of internal back end explanation from the visitor pages at Mohammed's instruction. Out went the filter matching explanation at the top of the filter card, the Sort by note explaining pay conversion and band matching, the district tree and matching rules inside How It Works Step 1, the verified link and lead count breakdown, the lead process wording on cards, the rolling recheck cycle lines, the underlying list and refresh wording, and the research spreadsheet phrase in the footer.
+- Kept, at his instruction, the sources line in the footer and the checked dates on job cards. The Lead label and the No official link found text stay as plain labels with no process explanation behind them. No data, counts, links, or filtering behavior changed in this pass.
+
 ## Rules for future changes
 
 - Show Mohammed a first draft or preview first. Do not publish, upload, or push anything live until he approves that exact version.
