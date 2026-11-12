@@ -84,6 +84,11 @@ All dates are Nov 11, 2026 unless noted. Live means pushed to GitHub Pages (gh-p
 - Panel repair, live Nov 11, 2026 with the same build: opening a filter panel no longer scrolls the page to the jobs, ticking a choice changes only the draft, and Apply closes the panel and lands on the updated results.
 - Pushed live on Nov 11, 2026 after Mohammed approved the preview build: district tree Location, split multi-location indexing, Chicagoland phrases under District 1, panel repair, slower universal transitions, and the name cleanup, all in one index.html push (gh-pages first, then main), with this README published in the same run.
 
+### About text corrections, live Nov 11, 2026
+
+- Removed an entry from the Credentials list on the About page that said Mohammed is a mentor in a mentorship program he only applied to. He is not a mentor in that program, so the entry came out completely and nothing replaced it. The program name now appears nowhere on the page.
+- Rewrote the Why I built this board section on the About page in Mohammed's own approved words. The new text says the openings are spread across 195 company websites, that he put them together in one place and keeps the board updated, and that the board is for students, recent grads, and anyone searching for a role in Illinois civil engineering. The earlier wording that presented him as an experienced insider and gave advice as a mentor was removed at his instruction.
+
 ## Rules for future changes
 
 - Show Mohammed a first draft or preview first. Do not publish, upload, or push anything live until he approves that exact version.
