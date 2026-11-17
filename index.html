@@ -250,6 +250,38 @@ a{color:var(--accent)}
 .comp-view:disabled{opacity:.55;cursor:default}
 .comp-view:disabled:hover{background:var(--chip);color:var(--ink)}
 
+
+/* ---------- Clickable card titles, company & job detail ---------- */
+.title-link{background:none;border:0;padding:0;margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;color:inherit;text-align:left;cursor:pointer}
+.title-link:hover{color:var(--accent-deep);text-decoration:underline;text-underline-offset:3px}
+.firm-link{background:none;border:0;padding:.1rem 0;margin:0;font-family:inherit;font-size:.98rem;font-weight:600;color:var(--accent-deep);text-align:left;cursor:pointer}
+.firm-link:hover{text-decoration:underline;text-underline-offset:3px}
+.firm-link-lg{font-size:1.08rem}
+.firm-title-btn{background:none;border:0;padding:0;margin:0;font-family:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;color:inherit;text-align:left;cursor:pointer}
+.firm-title-btn:hover{color:var(--accent-deep);text-decoration:underline;text-underline-offset:3px}
+.detail-card{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.4rem 1.5rem}
+@media (max-width:620px){.detail-card{padding:1.15rem 1.1rem}}
+.detail-kicker{font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 .3rem}
+.detail-title{font-size:clamp(1.6rem,3.4vw,2.1rem);margin:0 0 .4rem;line-height:1.15}
+.detail-firm{margin:.1rem 0 .3rem}
+.detail-badges{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center;margin:.55rem 0 .2rem}
+.detail-stats{margin-top:.9rem}
+.detail-rows{display:grid;grid-template-columns:1fr 1fr;gap:0 2.2rem;margin:1.1rem 0 0}
+.detail-rows>div{display:flex;gap:.9rem;padding:.55rem 0;border-bottom:1px solid var(--line)}
+.detail-rows dt{flex:0 0 7.6rem;font-weight:700;font-size:.9rem;color:var(--ink)}
+.detail-rows dd{margin:0;color:#3d443a;font-size:.95rem;min-width:0}
+@media (max-width:700px){.detail-rows{grid-template-columns:1fr}}
+.detail-subhead{margin:1.35rem 0 .25rem;font-size:1.15rem}
+.detail-note{color:var(--muted);font-size:.88rem}
+.desc-text p{margin:.55rem 0;color:#3d443a;max-width:72ch}
+.role-list{display:flex;flex-direction:column;gap:.5rem;margin-top:.7rem}
+.role-row{display:flex;flex-direction:column;gap:.15rem;align-items:flex-start;text-align:left;background:var(--surface2);border:1px solid var(--line);border-radius:7px;padding:.7rem .9rem;width:100%;font-family:inherit;cursor:pointer}
+.role-row:hover{border-color:var(--accent);background:var(--accent-soft)}
+.role-row-title{font-weight:700;color:var(--ink)}
+.role-row-meta{color:var(--muted);font-size:.86rem}
+.detail-jobs-btn{margin-top:1rem}
+.detail-apply{margin-top:1.2rem}
+
 /* ---------- About / creator ---------- */
 .creator{background:var(--surface);border:1px solid var(--line-strong);border-radius:var(--radius);padding:1.4rem 1.5rem;display:flex;gap:1.4rem;align-items:flex-start;margin-top:1rem}
 .creator img{width:112px;height:112px;border-radius:50%;object-fit:cover;flex:none;border:3px solid var(--accent-soft);box-shadow:0 0 0 1px var(--line-strong);background:var(--surface2)}
@@ -488,7 +520,7 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
       <button class="nav-item" role="tab" id="tab-home" aria-selected="true" data-view="home"><span class="nav-main">Home<span class="nav-desc">Welcome and where to go first</span></span><span class="nav-current" data-current-badge>Current</span></button>
       <button class="nav-item" role="tab" id="tab-how" aria-selected="false" data-view="how"><span class="nav-main">How It Works<span class="nav-desc">What this board is and how to use it</span></span><span class="nav-current" data-current-badge hidden>Current</span></button>
       <button class="nav-item" role="tab" id="tab-jobs" aria-selected="false" data-view="jobs"><span class="nav-main">Jobs<span class="nav-desc">Search and filter all open roles</span></span><span class="nav-current" data-current-badge hidden>Current</span></button>
-      <button class="nav-item" role="tab" id="tab-companies" aria-selected="false" data-view="companies"><span class="nav-main">Companies<span class="nav-desc">The 195 firms tracked on this board</span></span><span class="nav-current" data-current-badge hidden>Current</span></button>
+      <button class="nav-item" role="tab" id="tab-companies" aria-selected="false" data-view="companies"><span class="nav-main">Companies<span class="nav-desc">The 197 firms tracked on this board</span></span><span class="nav-current" data-current-badge hidden>Current</span></button>
       <button class="nav-item" role="tab" id="tab-about" aria-selected="false" data-view="about"><span class="nav-main">About<span class="nav-desc">Mohammed's portfolio, experience, and projects</span></span><span class="nav-current" data-current-badge hidden>Current</span></button>
     </nav>
   </div>
@@ -587,7 +619,7 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
         <div class="masthead">
           <div class="mast-top">
             <span class="mast-kicker">A hand-kept job board for Illinois engineers</span>
-            <span class="mast-date" id="mastDate">Data updated Nov 11, 2026</span>
+            <span class="mast-date" id="mastDate">Data updated Nov 17, 2026</span>
           </div>
           <h1>Illinois Engineering Jobs</h1>
           <p class="lede">Every open engineering role at the firms building Illinois roads, bridges, and transit, gathered in one place and kept current by hand, so you can search once instead of checking careers page after careers page.</p>
@@ -637,6 +669,7 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
           <div class="fgroup"><span class="lbl" id="lbl-field">Discipline</span><div id="ms-field"></div></div>
           <div class="fgroup"><span class="lbl" id="lbl-exp">Experience</span><div id="ms-exp"></div></div>
           <div class="fgroup"><span class="lbl" id="lbl-setting">Setting</span><div id="ms-setting"></div></div>
+          <div class="fgroup"><span class="lbl" id="lbl-phase">Phase</span><div id="ms-phase"></div></div>
           <div class="fgroup"><span class="lbl" id="lbl-license">License</span><div id="ms-license"></div></div>
           <div class="fgroup"><span class="lbl" id="lbl-pay">Pay</span><div id="ms-pay"></div></div>
           <div class="fgroup"><span class="lbl" id="lbl-size">Company size</span><div id="ms-size"></div></div>
@@ -695,6 +728,13 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
       <h2>Companies</h2>
       <p>The 195 firms behind these jobs, and where they work.</p>
     </div>
+    <div id="companyDetailWrap" hidden>
+      <div class="jobs-backbar">
+        <button type="button" class="back-btn js-back-btn" disabled aria-label="Go back to the previous view">&larr; Back</button>
+      </div>
+      <div id="companyDetail"></div>
+    </div>
+    <div id="compListWrap">
     <div class="results-meta">
       <span class="sub" id="compSub"></span>
     </div>
@@ -709,6 +749,15 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
     </div>
     <div class="comp-grid" id="compGrid"></div>
     <div class="empty" id="compEmpty" hidden><h3>No firms match</h3><p>Try a shorter search term.</p></div>
+    </div>
+  </section>
+
+  <!-- JOB DETAIL VIEW -->
+  <section class="view" id="view-job" role="tabpanel" aria-labelledby="tab-jobs" hidden>
+    <div class="jobs-backbar">
+      <button type="button" class="back-btn js-back-btn" disabled aria-label="Go back to the previous view">&larr; Back</button>
+    </div>
+    <div id="jobDetail"></div>
   </section>
 
   <!-- HOW IT WORKS VIEW -->
@@ -938,7 +987,7 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
     <div class="port-sec">
       <div class="why-board">
         <h3>Why I built this board</h3>
-        <p>I built this board to bring one scattered search into one place. These openings are spread across 195 company websites, and most of them are with firms working on IDOT and Illinois Tollway projects. I put them together here and keep the board updated, so people looking for work in this field can spend their time applying instead of hunting through career pages.</p>
+        <p>I built this board to bring one scattered search into one place. These openings are spread across 197 company websites, and most of them are with firms working on IDOT and Illinois Tollway projects. I put them together here and keep the board updated, so people looking for work in this field can spend their time applying instead of hunting through career pages.</p>
         <p>This is for students, recent grads, and anyone searching for a role in Illinois civil engineering. We are all looking at the same openings, so we might as well have one clean place to find them.</p>
         <div class="contact-row">
           <button type="button" class="cta-primary" data-goto="jobs">Browse the jobs</button>
@@ -971,7 +1020,7 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
   <div class="footer-in">
     <span><b>Illinois Engineering Jobs</b></span>
     <span>Made by Mohammed Shajiuddin Khan in Chicago</span>
-    <span><b id="footerDate">Data updated Nov 11, 2026</b></span>
+    <span><b id="footerDate">Data updated Nov 17, 2026</b></span>
     <span>Sources: IDOT PTBs 216–221 · Illinois Tollway PSBs 24-3 to 26-2 · Official firm careers boards</span>
     <span>View only · Applying happens on each firm's own site</span>
     <span class="footer-copy">© 2026 Mohammed Shajiuddin Khan. This board is compiled and maintained by him. Please share the link, not copies, so people always see the current version. <a href="https://wa.me/13094103603?text=Hi%20Mohammed%2C%20a%20link%20on%20your%20jobs%20board%20seems%20broken." target="_blank" rel="noopener noreferrer">Link broken? Tell me on WhatsApp</a></span>
@@ -1037,7 +1086,7 @@ function deriveSizeBand(size){
   for(var i=0;i<nums.length;i++){ var n = parseInt(nums[i].replace(/,/g,""),10); if(n>=1900 && n<=2100) continue; return sizeBandForN(n); }
   return "Unknown";
 }
-var DATA = {jobs:[], companies:[], updated:"Nov 11, 2026"};
+var DATA = {jobs:[], companies:[], updated:"Nov 17, 2026"};
 
 /* Multi-select filter state: each key holds a Set of selected values.
    A job passes a group when the group is empty or the job's value is in the set (ANY),
@@ -1045,7 +1094,7 @@ var DATA = {jobs:[], companies:[], updated:"Nov 11, 2026"};
 var state = {
   q:"", sort:"fresh",
   direct:false, pay:false, nope:false, savedOnly:false, shown:PAGE, quick:"",
-  sel: { location:new Set(), firm:new Set(), field:new Set(), exp:new Set(), setting:new Set(), license:new Set(), pay:new Set(), size:new Set() }
+  sel: { location:new Set(), firm:new Set(), field:new Set(), exp:new Set(), setting:new Set(), phase:new Set(), license:new Set(), pay:new Set(), size:new Set() }
 };
 var saved = new Set();
 try{ var raw = localStorage.getItem("il-transport-jobs-saved-v1"); if(raw){ JSON.parse(raw).forEach(function(id){ saved.add(id); }); } }catch(e){}
@@ -1059,6 +1108,7 @@ function jobVal(j, key){
   if(key==="firm") return j.firm;
   if(key==="field") return j.field;
   if(key==="setting") return j.setting;
+  if(key==="phase") return j.phaseNorm;
   if(key==="license") return j.licenseGroup;
   if(key==="size") return j.sizeBand || "Unknown";
   return null;
@@ -1533,7 +1583,7 @@ function filteredJobs(){
   var sel = state.sel;
   var out = DATA.jobs.filter(function(j){
     if(state.savedOnly && !saved.has(j.id)) return false;
-    var keys = ["firm","field","setting","license","size"];
+    var keys = ["firm","field","setting","phase","license","size"];
     for(var i=0;i<keys.length;i++){ var s = sel[keys[i]]; if(s.size && !s.has(jobVal(j, keys[i]))) return false; }
     if(sel.location.size && !jobMatchesLocation(j, sel.location)) return false;
     if(state.quick==="chicagoland" && j.areaGroup!=="Chicagoland") return false;
@@ -1599,7 +1649,7 @@ function jobCard(j){
   var longExp = j.experience && j.experience.length>150;
   var h = '<article class="card">';
   h += '<div class="card-top"><span class="badge level">'+esc(j.level)+'</span>'+licBadge+'<span class="badge">'+esc(j.field)+'</span><span class="badge">'+esc(j.areaGroup)+'</span></div>';
-  h += '<div class="firm-row"><div><h3>'+esc(j.title)+'</h3><div class="firm-name">'+esc(j.firm)+'</div></div>';
+  h += '<div class="firm-row"><div><h3><button type="button" class="title-link" data-open-job="'+j.id+'" aria-label="View details for '+esc(j.title)+'">'+esc(j.title)+'</button></h3><div><button type="button" class="firm-link" data-open-company="'+esc(j.firm)+'" aria-label="View the company page for '+esc(j.firm)+'">'+esc(j.firm)+'</button></div></div>';
   h += '<button class="bookmark" data-save="'+j.id+'" aria-pressed="'+isSaved+'" aria-label="'+(isSaved?"Remove bookmark for ":"Bookmark ")+esc(j.title)+'" title="Save this job on this device">'+ICON_BM+'</button></div>';
   h += '<div class="meta"><span>'+ICON_PIN+esc(j.location)+'</span><span>'+ICON_BLDG+esc(distLabel(j))+'</span><span>'+ICON_FIELD+esc(j.setting==="Not stated"?"Setting not stated":j.setting)+'</span></div>';
   if(j.experience){ h += '<p class="exp" id="exp-'+j.id+'">'+esc(j.experience)+'</p>'; if(longExp) h += '<button class="more-btn" data-more="'+j.id+'" aria-expanded="false">Full requirements</button>'; }
@@ -1668,7 +1718,7 @@ function renderJobs(reset){
 function selCount(){ var n = 0; Object.keys(state.sel).forEach(function(k){ n += state.sel[k].size; }); return n; }
 function isFiltered(){ return !!(state.q || state.quick || selCount() || state.direct || state.pay || state.nope); }
 
-var GROUP_LABELS = { location:"Location", firm:"Firm", field:"Discipline", exp:"Experience", setting:"Setting", license:"License", pay:"Pay", size:"Company size" };
+var GROUP_LABELS = { location:"Location", firm:"Firm", field:"Discipline", exp:"Experience", setting:"Setting", phase:"Phase", license:"License", pay:"Pay", size:"Company size" };
 function optLabel(key, v){
   if(!MS[key]) return v;
   var o = MS[key].options.filter(function(x){ return x.v===v; })[0];
@@ -1715,10 +1765,113 @@ function renderCompanies(){
       : '<button class="comp-view" disabled>No open roles right now</button>';
     var band = c.sizeBand || "Unknown";
     var sizeLine = '<span class="size-band">'+esc(SIZE_LABELS[band] || band)+'</span>' + (c.size ? ' <span>'+esc(c.size)+'</span>' : (band==="Unknown" ? ' <span>Size not confirmed yet</span>' : ''));
-    return '<article class="comp-card"><h3>'+esc(c.firm)+'</h3><div class="comp-size">'+sizeLine+'</div>'
+    return '<article class="comp-card"><h3><button type="button" class="firm-title-btn" data-open-company="'+esc(c.firm)+'" aria-label="View details for '+esc(c.firm)+'">'+esc(c.firm)+'</button></h3><div class="comp-size">'+sizeLine+'</div>'
       + '<div class="comp-stats"><div><b>'+c.projectsWon+'</b><span>PROJECTS WON</span></div><div><b>'+c.openRoles+'</b><span>OPEN ROLES</span></div></div>'
       + '<div class="dist-chips" aria-label="Districts active in">'+dchips+'</div>' + btn + '</article>';
   }).join("");
+}
+
+
+/* ---------- company detail (inside the Companies view) ---------- */
+var selectedFirm = null, companyOpen = false, selectedJobId = null;
+function showCompanyDetailUI(){
+  var w = $("companyDetailWrap"), l = $("compListWrap");
+  if(w) w.hidden = false;
+  if(l) l.hidden = true;
+  renderCompanyDetail();
+}
+function showCompanyListUI(){
+  var w = $("companyDetailWrap"), l = $("compListWrap");
+  if(w) w.hidden = true;
+  if(l) l.hidden = false;
+}
+function renderCompanyDetail(){
+  var el = $("companyDetail"); if(!el) return;
+  var c = null;
+  for(var i=0;i<DATA.companies.length;i++){ if(DATA.companies[i].firm===selectedFirm){ c = DATA.companies[i]; break; } }
+  if(!c){ el.innerHTML = '<div class="empty"><h3>Company not found</h3><p>That firm is not on the board.</p></div>'; return; }
+  var jobs = DATA.jobs.filter(function(j){ return j.firm===c.firm; });
+  var band = c.sizeBand || "Unknown";
+  var sizeLine = '<span class="size-band">'+esc(SIZE_LABELS[band] || band)+'</span>' + (c.size ? ' <span>'+esc(c.size)+'</span>' : (band==="Unknown" ? ' <span>Size not confirmed yet</span>' : ''));
+  var dists = c.districts.length ? c.districts.map(function(d){ return "District " + d + " \u00b7 " + (DIST_NAMES[d] || ""); }).join(", ") : "Districts not listed";
+  var h = '<div class="detail-card">';
+  h += '<p class="detail-kicker">Company</p><h2 class="detail-title">'+esc(c.firm)+'</h2>';
+  h += '<div class="comp-size">'+sizeLine+'</div>';
+  h += '<div class="comp-stats detail-stats"><div><b>'+c.projectsWon+'</b><span>PROJECTS WON</span></div><div><b>'+c.openRoles+'</b><span>OPEN ROLES</span></div></div>';
+  h += '<dl class="detail-rows">'
+    + '<div><dt>Firm size</dt><dd>'+(c.size ? esc(c.size) : esc(SIZE_LABELS[band] || band))+'</dd></div>'
+    + '<div><dt>Districts active in</dt><dd>'+esc(dists)+'</dd></div>'
+    + '<div><dt>Projects won</dt><dd>'+c.projectsWon+'</dd></div>'
+    + '<div><dt>Open roles</dt><dd>'+c.openRoles+'</dd></div></dl>';
+  if(jobs.length){
+    h += '<h3 class="detail-subhead">Open roles at '+esc(c.firm)+'</h3><div class="role-list">';
+    jobs.forEach(function(j){
+      h += '<button type="button" class="role-row" data-open-job="'+j.id+'"><span class="role-row-title">'+esc(j.title)+'</span><span class="role-row-meta">'+esc(j.location)+' \u00b7 '+esc(j.phaseNorm)+' \u00b7 '+esc(j.setting==="Not stated" ? "Setting not stated" : j.setting)+'</span></button>';
+    });
+    h += '</div>';
+    h += '<button type="button" class="comp-view detail-jobs-btn" data-firm="'+esc(c.firm)+'">View these '+jobs.length+(jobs.length===1 ? " job" : " jobs")+' in the Jobs list</button>';
+  } else {
+    h += '<p class="detail-note">No open roles at this firm right now.</p>';
+  }
+  h += '</div>';
+  el.innerHTML = h;
+}
+function openCompany(firm){
+  if(!firm) return;
+  updateCurrentHistScroll();
+  recordHistory();
+  selectedFirm = firm; companyOpen = true;
+  if(currentViewName !== "companies"){ switchView("companies"); }
+  else { showCompanyDetailUI(); jumpTo(0); animateViewEnter("companies"); }
+  recordHistory();
+}
+
+/* ---------- job detail page ---------- */
+function renderJobDetail(){
+  var el = $("jobDetail"); if(!el) return;
+  var j = null;
+  for(var i=0;i<DATA.jobs.length;i++){ if(DATA.jobs[i].id===selectedJobId){ j = DATA.jobs[i]; break; } }
+  if(!j){ el.innerHTML = '<div class="empty"><h3>Job not found</h3><p>That role is not on the board.</p></div>'; return; }
+  var checked = j.freshness ? String(j.freshness).replace(/^Checked\s+/, "") : "";
+  var h = '<div class="detail-card">';
+  h += '<p class="detail-kicker">Job details</p><h2 class="detail-title">'+esc(j.title)+'</h2>';
+  h += '<div class="detail-firm"><button type="button" class="firm-link firm-link-lg" data-open-company="'+esc(j.firm)+'" aria-label="View the company page for '+esc(j.firm)+'">'+esc(j.firm)+'</button></div>';
+  h += '<div class="detail-badges"><span class="badge level">'+esc(j.level)+'</span><span class="badge">'+esc(j.field)+'</span><span class="badge">'+esc(j.areaGroup)+'</span></div>';
+  h += '<dl class="detail-rows">'
+    + '<div><dt>Location</dt><dd>'+esc(j.location)+'</dd></div>'
+    + '<div><dt>District</dt><dd>'+esc(j.districtRaw ? j.districtRaw : distLabel(j))+'</dd></div>'
+    + '<div><dt>Discipline</dt><dd>'+esc(j.field)+'</dd></div>'
+    + '<div><dt>Phase</dt><dd>'+esc(j.phaseNorm)+(j.phaseGuessed ? ' <span class="detail-note">(best estimate. The posting did not state a phase)</span>' : '')+'</dd></div>'
+    + '<div><dt>Work setting</dt><dd>'+esc(j.setting==="Not stated" ? "Not stated" : j.setting)+'</dd></div>'
+    + '<div><dt>Level</dt><dd>'+esc(j.level)+'</dd></div>'
+    + '<div><dt>Experience</dt><dd>'+esc(j.experience ? j.experience : "Not stated")+'</dd></div>'
+    + '<div><dt>License</dt><dd>'+esc(j.license ? j.license : "Not stated")+'</dd></div>'
+    + '<div><dt>Pay</dt><dd>'+payHTML(j)+'</dd></div>'
+    + '<div><dt>Date posted</dt><dd>'+(j.posted ? esc(fmtDate(j.posted)) : "Not stated")+'</dd></div>'
+    + '<div><dt>Last checked</dt><dd>'+esc(checked)+'</dd></div></dl>';
+  if(j.description && String(j.description).trim()){
+    h += '<h3 class="detail-subhead">Job description</h3><div class="desc-text">';
+    String(j.description).split(/\n+/).forEach(function(par){ if(par.trim()) h += '<p>'+esc(par.trim())+'</p>'; });
+    h += '</div>';
+  }
+  if(j.applyUrl){
+    h += '<a class="apply-btn detail-apply" href="'+esc(j.applyUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(j.applyLabel || "Apply on firm site")+' '+ICON_EXT+'</a>';
+  } else {
+    h += '<div class="lead-box detail-apply"><b>Lead, no direct link yet.</b> No official link found.</div>';
+  }
+  var waMsg = encodeURIComponent("Hi Mohammed, the apply link for " + j.title + " at " + j.firm + " on your jobs board seems broken.");
+  h += '<a class="report-link" href="https://wa.me/13094103603?text=' + waMsg + '" target="_blank" rel="noopener noreferrer">Link broken? Tell me</a>';
+  h += '</div>';
+  el.innerHTML = h;
+}
+function openJob(id){
+  if(id==null || isNaN(id)) return;
+  updateCurrentHistScroll();
+  recordHistory();
+  selectedJobId = id;
+  if(currentViewName !== "job"){ switchView("job"); }
+  renderJobDetail();
+  recordHistory();
 }
 
 /* ---------- views ---------- */
@@ -1729,7 +1882,7 @@ function renderCompanies(){
    past that anchor. */
 var currentViewName = "home";
 var currentViewKey = "home";
-var viewScroll = { home:0, jobs:0, saved:0, companies:0, how:0, about:0 };
+var viewScroll = { home:0, jobs:0, saved:0, companies:0, how:0, about:0, job:0 };
 function scrollViewKey(name){ return name==="jobs" ? (state.savedOnly ? "saved" : "jobs") : name; }
 function topbarOffset(){ var tb = document.querySelector(".topbar"); return tb ? Math.ceil(tb.getBoundingClientRect().height) + 8 : 76; }
 function jumpTo(y){ try{ window.scrollTo({top:y, left:0, behavior:"instant"}); }catch(e){ window.scrollTo(0, y); } }
@@ -1853,17 +2006,20 @@ function switchView(name, opts){
   /* Remember where the user was in the view they are leaving, keyed by
      Jobs vs Saved separately, so coming back restores that spot. */
   viewScroll[currentViewKey] = window.scrollY;
-  ["home","how","jobs","companies","about"].forEach(function(v){
+  ["home","how","jobs","companies","about","job"].forEach(function(v){
     var viewEl = $("view-"+v); if(viewEl) viewEl.hidden = v!==name;
+  });
+  var activeTab = name==="job" ? "jobs" : name;
+  ["home","how","jobs","companies","about"].forEach(function(v){
     var tabEl = $("tab-"+v);
     if(tabEl){
-      tabEl.setAttribute("aria-selected", v===name);
+      tabEl.setAttribute("aria-selected", v===activeTab);
       var badge = tabEl.querySelector("[data-current-badge]");
-      if(badge) badge.hidden = v!==name;
+      if(badge) badge.hidden = v!==activeTab;
     }
   });
   closeMenu();
-  if(name==="companies") renderCompanies();
+  if(name==="companies"){ renderCompanies(); if(companyOpen && selectedFirm){ showCompanyDetailUI(); } else { showCompanyListUI(); } }
   currentViewName = name;
   currentViewKey = scrollViewKey(name);
   if(opts.scroll==="none"){ animateViewEnter(name); return; }
@@ -1897,17 +2053,19 @@ var histStack = [], histIndex = -1, histReady = false, isRestoring = false, pend
 function makeSnapshot(){
   var selCopy = {};
   Object.keys(state.sel).forEach(function(k){ selCopy[k] = Array.from(state.sel[k]); });
-  return { savedOnly:!!state.savedOnly, q:state.q||"", sort:state.sort||"fresh", direct:!!state.direct, pay:!!state.pay, nope:!!state.nope, quick:state.quick||"", shown:state.shown||PAGE, sel:selCopy, scrollY:window.scrollY };
+  return { savedOnly:!!state.savedOnly, q:state.q||"", sort:state.sort||"fresh", direct:!!state.direct, pay:!!state.pay, nope:!!state.nope, quick:state.quick||"", shown:state.shown||PAGE, sel:selCopy, view:currentViewName, firm:selectedFirm, jobId:selectedJobId, scrollY:window.scrollY };
 }
 function snapshotsEqual(a, b){
   if(!a || !b) return false;
-  function norm(s){ return JSON.stringify({savedOnly:s.savedOnly, q:s.q, sort:s.sort, direct:s.direct, pay:s.pay, nope:s.nope, quick:s.quick, shown:s.shown, sel:s.sel}); }
+  function norm(s){ return JSON.stringify({savedOnly:s.savedOnly, q:s.q, sort:s.sort, direct:s.direct, pay:s.pay, nope:s.nope, quick:s.quick, shown:s.shown, sel:s.sel, view:s.view||"jobs", firm:s.firm||null, jobId:(s.jobId!=null?s.jobId:null)}); }
   return norm(a) === norm(b);
 }
 function updateCurrentHistScroll(){
   if(!histReady || isRestoring) return;
-  if(currentViewName !== "jobs") return;
-  if(histStack[histIndex]) histStack[histIndex].scrollY = window.scrollY;
+  var snap0 = histStack[histIndex];
+  if(!snap0) return;
+  if((snap0.view || "jobs") !== currentViewName) return;
+  snap0.scrollY = window.scrollY;
 }
 function updateBackBtns(){
   var can = histReady && histIndex > 0;
@@ -1942,9 +2100,15 @@ function applySnapshot(snap){
   var fs = $("fSort"); if(fs) fs.value = state.sort;
   var sb = $("savedBtn"); if(sb) sb.setAttribute("aria-pressed", state.savedOnly ? "true" : "false");
   syncAllMS();
-  if(currentViewName !== "jobs"){ switchView("jobs", {scroll:"none"}); }
-  renderJobs(false);
-  animateViewEnter("jobs");
+  selectedFirm = snap.firm || null;
+  companyOpen = !!(snap.view === "companies" && snap.firm);
+  selectedJobId = (snap.jobId!=null ? snap.jobId : null);
+  var targetView = snap.view || "jobs";
+  if(currentViewName !== targetView){ switchView(targetView, {scroll:"none"}); }
+  if(targetView === "jobs"){ renderJobs(false); }
+  else if(targetView === "companies"){ renderCompanies(); if(companyOpen){ showCompanyDetailUI(); } else { showCompanyListUI(); } }
+  else if(targetView === "job"){ renderJobDetail(); }
+  animateViewEnter(targetView);
   var y = typeof snap.scrollY === "number" ? snap.scrollY : 0;
   jumpTo(y);
   if(window.requestAnimationFrame) window.requestAnimationFrame(function(){ jumpTo(y); });
@@ -1989,7 +2153,7 @@ document.addEventListener("touchstart", function(e){
   if(!e.touches || e.touches.length !== 1) return;
   var t = e.touches[0];
   if(t.clientX > 28) return;
-  if(currentViewName !== "jobs") return;
+  if(currentViewName !== "jobs" && currentViewName !== "job" && currentViewName !== "companies") return;
   if(e.target && e.target.closest && e.target.closest(".ms-panel, .nav-menu, .ms")) return;
   edgeSwipe = {x:t.clientX, y:t.clientY, done:false};
 }, {passive:true});
@@ -2094,6 +2258,13 @@ function setupFilters(){
   buildMS("exp", "ms-exp", "lbl-exp", "Any experience", expOpts, false);
   var sc = countsBy(jobs, function(j){ return j.setting; });
   buildMS("setting", "ms-setting", "lbl-setting", "All settings", Object.keys(sc).sort().map(function(s){ return {v:s, t:s, c:sc[s]}; }), false);
+  /* Phase: a fixed three-option list in IDOT phase order, counted from
+     phaseNorm. Every job now carries a Phase I, Phase II, or Phase III
+     value: where the posting did not state a phase, the value is a best
+     estimate (phaseGuessed) and the job is counted and filtered under
+     it like any other, so there is no "Not stated" option. */
+  var phc = countsBy(jobs, function(j){ return j.phaseNorm; });
+  buildMS("phase", "ms-phase", "lbl-phase", "Any phase", ["Phase I","Phase II","Phase III"].filter(function(k){ return phc[k]; }).map(function(k){ return {v:k, t:k, c:phc[k]}; }), false);
   var licCounts = countsBy(jobs, function(j){ return j.licenseGroup; });
   buildMS("license", "ms-license", "lbl-license", "Any license", LIC_ORDER.filter(function(k){ return licCounts[k]; }).map(function(k){ return {v:k, t:k, c:licCounts[k]}; }), false);
   buildMS("pay", "ms-pay", "lbl-pay", "Any pay", PAY_BANDS.map(function(b){
@@ -2131,7 +2302,7 @@ function applyQuick(kind){
 
 /* ---------- events ---------- */
 function bind(){
-  document.querySelectorAll(".nav-item").forEach(function(t){ t.addEventListener("click", function(){ switchView(t.getAttribute("data-view")); }); });
+  document.querySelectorAll(".nav-item").forEach(function(t){ t.addEventListener("click", function(){ var v = t.getAttribute("data-view"); if(v==="companies"){ selectedFirm = null; companyOpen = false; } switchView(v); }); });
   var menuBtn = $("menuBtn"), navMenu = $("navMenu");
   if(menuBtn && navMenu){
     menuBtn.addEventListener("click", function(e){
@@ -2149,7 +2320,7 @@ function bind(){
   $("searchForm").addEventListener("submit", function(e){ e.preventDefault(); updateCurrentHistScroll(); state.q = $("searchInput").value; if(state.quick!=="chicagoland") state.quick=""; switchView("jobs", {scroll:"anchor"}); renderJobs(true); scrollToViewAnchor("jobs"); recordHistory(); });
   var deb; $("searchInput").addEventListener("input", function(){ clearTimeout(deb); deb = setTimeout(function(){ state.q = $("searchInput").value; if(!$("view-jobs").hidden) renderJobs(true); }, 220); });
   $("fSort").addEventListener("change", function(){ updateCurrentHistScroll(); state.sort = this.value; renderJobs(true); recordHistory(); });
-  document.querySelectorAll("[data-goto]").forEach(function(b){ b.addEventListener("click", function(){ switchView(b.getAttribute("data-goto")); }); });
+  document.querySelectorAll("[data-goto]").forEach(function(b){ b.addEventListener("click", function(){ var v = b.getAttribute("data-goto"); if(v==="companies"){ selectedFirm = null; companyOpen = false; } switchView(v); }); });
   document.querySelectorAll(".js-back-btn").forEach(function(b){ b.addEventListener("click", function(){ goBack(); }); });
   var jumpTopBtn = $("jumpTopBtn"), jumpBottomBtn = $("jumpBottomBtn");
   if(jumpTopBtn) jumpTopBtn.addEventListener("click", function(){
@@ -2207,6 +2378,10 @@ function bind(){
       else { state.sel[group].delete(value); if(MS[group]){ MS[group].draft=null; syncMS(MS[group]); } }
       if(state.quick!=="chicagoland") state.quick=""; renderJobs(true); recordHistory(); return;
     }
+    var oc = e.target.closest("[data-open-company]");
+    if(oc){ openCompany(oc.getAttribute("data-open-company")); return; }
+    var oj = e.target.closest("[data-open-job]");
+    if(oj){ openJob(parseInt(oj.getAttribute("data-open-job"),10)); return; }
     var fv = e.target.closest("[data-firm]");
     if(fv){ goToFirmJobs(fv.getAttribute("data-firm")); }
   });
