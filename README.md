@@ -100,6 +100,16 @@ All dates are Nov 11, 2026 unless noted. Live means pushed to GitHub Pages (gh-p
 - Updated the manifest to carry all five icon entries and moved the service worker cache to iej-shell-v3 so installed users pick up the new icons.
 - Replaced the old footer visit count with a shared unique visitor counter. Each browser counts once toward the total and once toward the Chicago calendar day, and refreshes only read the shared numbers. The old code that rose on every refresh is removed. If the counter service cannot be reached, the footer leaves the number out instead of showing a wrong count.
 
+### Data refresh, live Nov 16, 2026
+
+- Data-only refresh after the Group 1 worksheet cycle finished. The board now carries 810 open jobs across 196 firms (the dataset also lists the WITHDRAWN and DEFERRED bulletin status rows, which stay hidden as before, so the source count reads 198). New firm on the board: Tetra Tech. Data updated date now reads Nov 16, 2026. No design, filter, or behavior changes.
+- Pushed data.json and assets/data.json only, gh-pages first (commit 7c8eb888d3e4b8c29b9118102c434c28df7c8282), then main (commit c8ead3415d4fed9f431cc44db408219835eb474f). Live site verified serving the Nov 16, 2026 dataset the same day.
+
+### Data refresh, live Nov 17, 2026
+
+- Data-only refresh after the Group 2 quarter 1 worksheet check finished. The board now carries 798 open jobs across 197 firms (the dataset also lists the WITHDRAWN and DEFERRED bulletin status rows, which stay hidden as before, so the source count reads 199). New firm on the board: Engineering Resource Associates, Inc. (ERA), Warrenville. Data updated date now reads Nov 17, 2026. No design, filter, or behavior changes.
+- Pushed data.json and assets/data.json only, gh-pages first (commit 95a24b114283386076e5afb02281539618a7b2ab), then main (commit 1df840411f5f5c57c13a5c00db39ea52d78cd201). Live site verified serving the Nov 17, 2026 dataset the same day.
+
 ## Rules for future changes
 
 - Show Mohammed a first draft or preview first. Do not publish, upload, or push anything live until he approves that exact version.
@@ -108,8 +118,17 @@ All dates are Nov 11, 2026 unless noted. Live means pushed to GitHub Pages (gh-p
 - Never add personal notes, salary, application status, or private instructions to the public site, the shared spreadsheet, or this README.
 - No tool or platform names in the repository or on the public site, in visible text, code comments, or metadata. The board is presented as Mohammed's own work.
 
+## 2026-11-17, Phase filter, clickable companies and roles, job detail pages, live Nov 17, 2026
+
+- Added a Phase filter to the Jobs filters with Phase I, Phase II, and Phase III options, driven by a new phaseNorm field on every job in the dataset, classified from each posting title and discipline. The daily worksheet job now recomputes phaseNorm on every refresh, so future jobs are classified the same way.
+- Jobs with no clear phase from title and discipline carry a best guess phase, marked phaseGuessed in the data, and the job detail page notes when the phase is a best estimate. Final counts of 798. Phase I 59, Phase II 569, Phase III 170. No Not stated group remains in the Phase filter.
+- The company name on each job card is now clickable and opens the Companies view at that company. The company view carries more information, firm size, districts, projects won, open roles count, and a clickable list of its open roles.
+- The role title on each job card is now clickable and opens a job detail page inside the app with everything held for the job, plus the captured job description when one exists and a button to the official posting.
+- Job descriptions are now captured by the daily worksheet run for each slice it verifies, saved in the goal hidden files and merged into the dataset, so descriptions fill in across the cycle. Jobs without a captured description yet show their stored details and the posting button only.
+- Status. Live. Pushed index.html, data.json, and assets/data.json to gh-pages first (commit 3b297f0f30d51ea225440bfeb7bc9eebfb4dc0ee), then main (commit 095d5db0ce2f27fc5969b7fa48bdad664e09371b), after Mohammed approved the preview. Remote files verified carrying phaseNorm on all 798 jobs the same day.
+
 ## Known open items
 
-- Manhard Consulting Dayforce board was down during the Nov 11 check, so its 8 roles stay leads pending a retry in a later cycle.
+- Manhard Consulting Dayforce board was down during the Nov 11 check and still offline at the Nov 17 recheck, so its 8 roles were flagged as leads removed from the shared copy pending a retry in a later cycle.
 - Ciorba Group board is broken and its careers page points to LinkedIn, so its 11 roles stay leads pending a LinkedIn fallback check.
 - Spreadsheet category cleanup (same standardized categories inside the spreadsheet itself) is deferred to the week of Nov 16, 2026, at Mohammed's instruction.
