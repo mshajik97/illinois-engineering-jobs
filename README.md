@@ -110,6 +110,19 @@ All dates are Nov 11, 2026 unless noted. Live means pushed to GitHub Pages (gh-p
 - Data-only refresh after the Group 2 quarter 1 worksheet check finished. The board now carries 798 open jobs across 197 firms (the dataset also lists the WITHDRAWN and DEFERRED bulletin status rows, which stay hidden as before, so the source count reads 199). New firm on the board: Engineering Resource Associates, Inc. (ERA), Warrenville. Data updated date now reads Nov 17, 2026. No design, filter, or behavior changes.
 - Pushed data.json and assets/data.json only, gh-pages first (commit 95a24b114283386076e5afb02281539618a7b2ab), then main (commit 1df840411f5f5c57c13a5c00db39ea52d78cd201). Live site verified serving the Nov 17, 2026 dataset the same day.
 
+### Data refresh, live Nov 18, 2026
+
+- Data-only refresh after the Group 2 quarter 2 worksheet check finished (CKL Engineers, 10-4 Engineering, Lochmueller Group, AAA Engineering, EFK Moen). The board now carries 804 open jobs across 198 firms (the dataset also lists the WITHDRAWN and DEFERRED bulletin status rows, which stay hidden as before, so the source count reads 200). New firm on the board: Thornton Tomasetti, Chicago. Data updated date now reads Nov 18, 2026. No design, filter, or behavior changes.
+- Pushed data.json and assets/data.json only, gh-pages first (commit aa260a3e940b2fb6579727f8656589cf0f5f5fce), then main (commit 1df5a050f38cdbfee4ae70c0e1d2e86644c1b923). Live site verified serving the Nov 18, 2026 dataset the same day.
+
+### District, counter, footer, and description fixes, live Nov 19, 2026
+
+- Fixed the Location filter district for Bloomington. Bloomington (McLean County) is IDOT District 5 and now carries a fixed geography assignment, so all 8 jobs whose listings name Bloomington file under District 5. Jobs whose listings also name a District 1 place (the three Black and Veatch Chicago postings and one Farnsworth posting listing Lisle and Tinley Park) file under both District 1 and District 5, and job cards and detail pages now name every district a job is filed under.
+- Fixed the footer visitor counter loading. The counter line now stays visible while it loads, each count waits up to 7 seconds and retries twice, and a retry reads the shared count rather than counting again, so a slow counter service no longer leaves the footer blank.
+- Removed the footer line asking readers to share the link instead of copies, at Mohammed's instruction. The footer keeps the copyright line, the WhatsApp broken link contact, and the visitor counts.
+- Fixed job description formatting on job detail pages. Descriptions are stored as flat text, so the page now rebuilds the structure at display time. Section headings, bullet and numbered lists, and short paragraphs render properly, with every word of the stored text preserved in order.
+- Status. Live. Pushed index.html only to gh-pages first (commit c134a6551b53fb2b80d2aade7e5ed1912e32c547), then main (commit 54855e7cdd6a8255785b2d8e8c0be77cef29983b), after Mohammed approved the preview. Live site verified serving the new index.html the same day.
+
 ## Rules for future changes
 
 - Show Mohammed a first draft or preview first. Do not publish, upload, or push anything live until he approves that exact version.
