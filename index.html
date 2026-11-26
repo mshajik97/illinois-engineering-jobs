@@ -626,7 +626,7 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
         <div class="masthead">
           <div class="mast-top">
             <span class="mast-kicker">A hand-kept job board for Illinois engineers</span>
-            <span class="mast-date" id="mastDate">Data updated Nov 18, 2026</span>
+            <span class="mast-date" id="mastDate">Data updated Nov 24, 2026</span>
           </div>
           <h1>Illinois Engineering Jobs</h1>
           <p class="lede">Every open engineering role at the firms building Illinois roads, bridges, and transit, gathered in one place and kept current by hand, so you can search once instead of checking careers page after careers page.</p>
@@ -1027,7 +1027,7 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
   <div class="footer-in">
     <span><b>Illinois Engineering Jobs</b></span>
     <span>Made by Mohammed Shajiuddin Khan in Chicago</span>
-    <span><b id="footerDate">Data updated Nov 18, 2026</b></span>
+    <span><b id="footerDate">Data updated Nov 24, 2026</b></span>
     <span>Sources: IDOT PTBs 216–221 · Illinois Tollway PSBs 24-3 to 26-2 · Official firm careers boards</span>
     <span>View only · Applying happens on each firm's own site</span>
     <span class="footer-copy">© 2026 Mohammed Shajiuddin Khan. <a href="https://wa.me/13094103603?text=Hi%20Mohammed%2C%20a%20link%20on%20your%20jobs%20board%20seems%20broken." target="_blank" rel="noopener noreferrer">Link broken? Tell me on WhatsApp</a></span>
@@ -1093,7 +1093,7 @@ function deriveSizeBand(size){
   for(var i=0;i<nums.length;i++){ var n = parseInt(nums[i].replace(/,/g,""),10); if(n>=1900 && n<=2100) continue; return sizeBandForN(n); }
   return "Unknown";
 }
-var DATA = {jobs:[], companies:[], updated:"Nov 18, 2026"};
+var DATA = {jobs:[], companies:[], updated:"Nov 24, 2026"};
 
 /* Multi-select filter state: each key holds a Set of selected values.
    A job passes a group when the group is empty or the job's value is in the set (ANY),
@@ -1189,7 +1189,7 @@ function qualifiesMaxExp(j, cap){
    under its district, and "other:<label>" for one leaf under No
    district listed. The set only ever holds topmost selected nodes:
    a district pick subsumes its leaves (see treeToggle). */
-var NON_IL_CITIES = { "St. Louis":"St. Louis, MO", "Waterford":"Waterford, WI", "Milwaukee":"Milwaukee, WI", "Boston":"Boston, MA", "Atlanta":"Atlanta, GA", "Omaha":"Omaha, NE", "Charlotte":"Charlotte, NC", "Raleigh":"Raleigh, NC", "St. Paul":"St. Paul, MN", "Denver":"Denver, CO", "Minneapolis":"Minneapolis, MN", "Indianapolis":"Indianapolis, IN", "Salt Lake City":"Salt Lake City, UT" };
+var NON_IL_CITIES = { "St. Louis":"St. Louis, MO", "Waterford":"Waterford, WI", "Milwaukee":"Milwaukee, WI", "Boston":"Boston, MA", "Atlanta":"Atlanta, GA", "Omaha":"Omaha, NE", "Charlotte":"Charlotte, NC", "Raleigh":"Raleigh, NC", "St. Paul":"St. Paul, MN", "Denver":"Denver, CO", "Minneapolis":"Minneapolis, MN", "Indianapolis":"Indianapolis, IN", "Salt Lake City":"Salt Lake City, UT", "Portland":"Portland, OR" };
 var REGION_CITIES = { "Not stated":1, "Illinois":1, "Chicagoland":1, "Greater Chicagoland":1, "Chicagoland and surrounding regions":1, "Northern Illinois - IDOT client site":1, "Northern Illinois":1, "Southern IL":1, "Southern Illinois":1 };
 /* Non-city descriptors that appear as locations: each becomes its own
    single leaf, labelled exactly as mapped. A descriptor that names a
@@ -1214,7 +1214,7 @@ function regionDistrictFor(label){
   return null;
 }
 var LOC_DROP = { "any location":1, "other Midwest cities":1, "other IL":1, "MO locations":1, "multi-state regional locations":1, "other locations":1, "choose location":1 };
-var OUT_STATE_CODES = "WI|MO|MA|GA|NE|NC|MN|TX|PA|OH|CO|UT|IN|MI|CA|TN|KS";
+var OUT_STATE_CODES = "WI|MO|MA|GA|NE|NC|MN|TX|PA|OH|CO|UT|IN|MI|CA|TN|KS|OR";
 /* IDOT district geography for cities the district-carrying jobs do
    not settle on their own: Effingham heads District 7, Pontiac sits
    in District 3, Bloomington and Normal pair in District 5 (the
@@ -1297,6 +1297,14 @@ function parseJobPlaces(j){
     for(var i=0;i<CITY_VOCAB_BY_LEN.length;i++){
       var c = CITY_VOCAB_BY_LEN[i];
       if(t.indexOf(c + " ")===0 || t.indexOf(c + ".")===0){ pushC(c); return; }
+    }
+    /* A token can also END with a known city after other words, the
+       mirror of the prefix scan above: "Multiple locations incl.
+       Northbrook" names Northbrook, so the job is indexed under it
+       like any other place it mentions. */
+    for(var k=0;k<CITY_VOCAB_BY_LEN.length;k++){
+      var c2 = CITY_VOCAB_BY_LEN[k];
+      if(t.length>c2.length && t.slice(t.length-c2.length-1)===" " + c2){ pushC(c2); return; }
     }
   }
   s.split(/[/;,]|\s+or\s+/i).forEach(function(seg){
