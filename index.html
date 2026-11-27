@@ -626,7 +626,7 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
         <div class="masthead">
           <div class="mast-top">
             <span class="mast-kicker">A hand-kept job board for Illinois engineers</span>
-            <span class="mast-date" id="mastDate">Data updated Nov 24, 2026</span>
+            <span class="mast-date" id="mastDate">Data updated Nov 27, 2026</span>
           </div>
           <h1>Illinois Engineering Jobs</h1>
           <p class="lede">Every open engineering role at the firms building Illinois roads, bridges, and transit, gathered in one place and kept current by hand, so you can search once instead of checking careers page after careers page.</p>
@@ -1027,7 +1027,7 @@ button:active,.apply-btn:active,.cta-primary:active,.cta-secondary:active,.comp-
   <div class="footer-in">
     <span><b>Illinois Engineering Jobs</b></span>
     <span>Made by Mohammed Shajiuddin Khan in Chicago</span>
-    <span><b id="footerDate">Data updated Nov 24, 2026</b></span>
+    <span><b id="footerDate">Data updated Nov 27, 2026</b></span>
     <span>Sources: IDOT PTBs 216–221 · Illinois Tollway PSBs 24-3 to 26-2 · Official firm careers boards</span>
     <span>View only · Applying happens on each firm's own site</span>
     <span class="footer-copy">© 2026 Mohammed Shajiuddin Khan. <a href="https://wa.me/13094103603?text=Hi%20Mohammed%2C%20a%20link%20on%20your%20jobs%20board%20seems%20broken." target="_blank" rel="noopener noreferrer">Link broken? Tell me on WhatsApp</a></span>
@@ -1093,7 +1093,7 @@ function deriveSizeBand(size){
   for(var i=0;i<nums.length;i++){ var n = parseInt(nums[i].replace(/,/g,""),10); if(n>=1900 && n<=2100) continue; return sizeBandForN(n); }
   return "Unknown";
 }
-var DATA = {jobs:[], companies:[], updated:"Nov 24, 2026"};
+var DATA = {jobs:[], companies:[], updated:"Nov 27, 2026"};
 
 /* Multi-select filter state: each key holds a Set of selected values.
    A job passes a group when the group is empty or the job's value is in the set (ANY),
@@ -1221,9 +1221,9 @@ var OUT_STATE_CODES = "WI|MO|MA|GA|NE|NC|MN|TX|PA|OH|CO|UT|IN|MI|CA|TN|KS|OR";
    majority vote alone would file Bloomington under District 1,
    because it only appears on district-carrying jobs as an alternate
    location of Chicago postings), New Lenox is Will County in
-   District 1, Macomb is District 4, and East St. Louis is Metro East
-   in District 8. */
-var CITY_DISTRICT_OVERRIDE = { "Effingham":7, "Pontiac":3, "Bloomington":5, "Normal":5, "New Lenox":1, "Macomb":4, "East St. Louis":8 };
+   District 1, Macomb is District 4, and East St. Louis and Fairview
+   Heights are Metro East in District 8. */
+var CITY_DISTRICT_OVERRIDE = { "Effingham":7, "Pontiac":3, "Bloomington":5, "Normal":5, "New Lenox":1, "Macomb":4, "East St. Louis":8, "Fairview Heights":8 };
 var EXTRA_IL_CITIES = ["Columbia","Effingham","Freeburg","Glen Carbon","Maryville","Mt. Vernon","New Lenox","Pontiac","Taylorville","Volo"];
 var CITY_VOCAB = null, CITY_VOCAB_BY_LEN = [];
 var CITY_DISTRICT = {};
